@@ -10,32 +10,54 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    private String username;
     private String name;
+    private String surname;
     private String password;
     private String position;
     private String email;
     private String phone;
+    private String department;
 
     public User(){}
 
-    public User(String name, String password, String position, String email, String phone) {
+    public User(String username, String name, String surname, String password, String position, String email, String phone, String department) {
+        this.username = username;
         this.name = name;
+        this.surname = surname;
         this.password = password;
         this.position = position;
         this.email = email;
         this.phone = phone;
+        this.department = department;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getDepartment() {
+        return department;
     }
 
     public String getPassword() {
@@ -44,6 +66,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     public String getPosition() {
