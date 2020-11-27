@@ -17,11 +17,13 @@ public class User {
     private String position;
     private String email;
     private String phone;
-    private String department;
+
+    @OneToOne(targetEntity = Department.class, cascade=CascadeType.ALL)
+    private Department department;
 
     public User(){}
 
-    public User(String username, String name, String surname, String password, String position, String email, String phone, String department) {
+    public User(String username, String name, String surname, String password, String position, String email, String phone, Department department) {
         this.username = username;
         this.name = name;
         this.surname = surname;
@@ -60,7 +62,7 @@ public class User {
         return surname;
     }
 
-    public String getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
@@ -76,7 +78,7 @@ public class User {
         this.surname = surname;
     }
 
-    public void setDepartment(String department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 

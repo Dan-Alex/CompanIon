@@ -1,6 +1,7 @@
 package com.alexdan.docflow.controllers;
 
 import com.alexdan.docflow.data.UserRepository;
+import com.alexdan.docflow.models.Department;
 import com.alexdan.docflow.models.User;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,7 +47,7 @@ class UserControllerTest {
     public void getUserAndStatus200Test() throws Exception {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
-                "b@mail.com", "345678", "design department");
+                "b@mail.com", "345678", new Department());
         user.setId(1);
 
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
@@ -69,7 +70,7 @@ class UserControllerTest {
     public void putUserAndStatus200Test() throws Exception {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
-                "b@mail.com", "345678", "design department");
+                "b@mail.com", "345678", new Department());
         user.setId(1);
 
         when(userRepository.save(any())).thenReturn(user);
@@ -86,7 +87,7 @@ class UserControllerTest {
     public void deleteUserAndStatus202Test() throws Exception {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
-                "b@mail.com", "345678", "design department");
+                "b@mail.com", "345678", new Department());
         user.setId(1);
 
         mockMvc.perform(delete("/users/1", 1).
@@ -100,7 +101,7 @@ class UserControllerTest {
     public void postUserAndStatus200Test() throws Exception {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
-                "b@mail.com", "345678", "design department");
+                "b@mail.com", "345678", new Department());
         user.setId(1);
 
         when(userRepository.save(any())).thenReturn(user);
