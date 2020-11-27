@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.alexdan.docflow.exceptions.UserNotFoundException;
+
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -22,34 +25,37 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getUser(@PathVariable long id, Model model){
-        model.addAttribute(userRepository.findById());
-        return "users/viewUser";
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable long id, Model model){
+        User user = userRepository.findById(id).
+                                   orElseThrow(()-> new UserNotFoundException(id));
+        model.addAttribute(user);
+        return user;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public putUser(@PathVariable long id, User user){
-        userRepository.save(user);
+    @PutMapping("/{id}")
+    public User putUser(@PathVariable long id, @RequestBody User user){
+
+        User updatedUser = userRepository.save(user);
+        return updatedUser;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public deleteUser(@PathVariable long id){
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void deleteUser(@PathVariable long id){
         userRepository.deleteById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody User createUser(User user, BindingResult result, HttpServletResponse responce){
+    @PostMapping
+    public @ResponseBody User createUser(User user, BindingResult result, HttpServletResponse responce)
+                                        throws BindException{
         if (result.hasErrors())
             throw new BindException(result);
 
-        User saveUser = userRepository.save(user);
+        User savedUser = userRepository.save(user);
 
-        responce.setHeader("Location", "/users/" + saveUser.getId());
-        return saveUser;
+        responce.setHeader("Location", "/users/" + savedUser.getId());
+        return savedUser;
     }
 
 }
