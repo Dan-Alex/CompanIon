@@ -28,7 +28,7 @@ class UserRepositoryTest {
     public void CreateAndFindTest(){
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
-                                "b@mail.com", "345678",new Department());
+                                "b@mail.com", "345678");
         User userSave = userRepository.save(user);
         User userFind = userRepository.findById(userSave.getId()).get();
 
@@ -47,7 +47,7 @@ class UserRepositoryTest {
     public void UpdateTest(){
 
         User user = new User("Alex2", "A", "B", "1234", "ingineer",
-                                "a@mail.com", "341234",new Department());
+                                "a@mail.com", "341234");
         User userSave = userRepository.save(user);
         String newPosition = "инженер 2-ой категории";
         user.setPosition(newPosition);
@@ -64,7 +64,7 @@ class UserRepositoryTest {
     public void DeleteTest(){
 
         User user = new User("QWERT", "mike", "ivanov", "1234", "ingineer",
-                                "a@mail.com", "341234",new Department());
+                                "a@mail.com", "341234");
 
         User userSave = userRepository.save(user);
         userRepository.delete(user);

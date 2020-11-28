@@ -18,12 +18,13 @@ public class User {
     private String email;
     private String phone;
 
-    @OneToOne(targetEntity = Department.class, cascade=CascadeType.ALL)
+    @OneToOne(targetEntity = Department.class, cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "department_id")
     private Department department;
 
     public User(){}
 
-    public User(String username, String name, String surname, String password, String position, String email, String phone, Department department) {
+    public User(String username, String name, String surname, String password, String position, String email, String phone) {
         this.username = username;
         this.name = name;
         this.surname = surname;
@@ -31,7 +32,6 @@ public class User {
         this.position = position;
         this.email = email;
         this.phone = phone;
-        this.department = department;
     }
 
     public long getId() {

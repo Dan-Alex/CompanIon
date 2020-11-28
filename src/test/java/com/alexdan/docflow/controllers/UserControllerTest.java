@@ -47,7 +47,7 @@ class UserControllerTest {
     public void getUserAndStatus200Test() throws Exception {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
-                "b@mail.com", "345678", new Department());
+                "b@mail.com", "345678");
         user.setId(1);
 
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
@@ -70,7 +70,7 @@ class UserControllerTest {
     public void putUserAndStatus200Test() throws Exception {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
-                "b@mail.com", "345678", new Department());
+                "b@mail.com", "345678");
         user.setId(1);
 
         when(userRepository.save(any())).thenReturn(user);
@@ -87,7 +87,7 @@ class UserControllerTest {
     public void deleteUserAndStatus202Test() throws Exception {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
-                "b@mail.com", "345678", new Department());
+                "b@mail.com", "345678");
         user.setId(1);
 
         mockMvc.perform(delete("/users/1", 1).
@@ -101,7 +101,7 @@ class UserControllerTest {
     public void postUserAndStatus200Test() throws Exception {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
-                "b@mail.com", "345678", new Department());
+                "b@mail.com", "345678");
         user.setId(1);
 
         when(userRepository.save(any())).thenReturn(user);

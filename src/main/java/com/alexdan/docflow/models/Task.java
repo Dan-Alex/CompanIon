@@ -14,14 +14,73 @@ public class Task {
     private String text;
 
     @OneToOne(targetEntity = User.class)
+    @JoinColumn(name = "toWhomUser_id")
     private User toWhom;
 
     @OneToOne(targetEntity = User.class)
+    @JoinColumn(name = "fromWhomUser_id")
     private User fromWhom;
 
     @Enumerated(EnumType.STRING)
-    public final TasksStatuses status;
+    private TasksStatuses status;
 
     private enum TasksStatuses{PERFORMED, NEW, COMPLETED}
 
+    public Task(){}
+
+    public Task(String name, String text, User toWhom, User fromWhom, TasksStatuses status) {
+        this.name = name;
+        this.text = text;
+        this.toWhom = toWhom;
+        this.fromWhom = fromWhom;
+        this.status = status;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public User getToWhom() {
+        return toWhom;
+    }
+
+    public void setToWhom(User toWhom) {
+        this.toWhom = toWhom;
+    }
+
+    public User getFromWhom() {
+        return fromWhom;
+    }
+
+    public void setFromWhom(User fromWhom) {
+        this.fromWhom = fromWhom;
+    }
+
+    public TasksStatuses getStatus() {
+        return status;
+    }
+
+    public void setStatus(TasksStatuses status) {
+        this.status = status;
+    }
 }
