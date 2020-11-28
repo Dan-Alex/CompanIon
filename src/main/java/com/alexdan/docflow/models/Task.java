@@ -22,6 +22,6 @@ public class Task {
     @Enumerated(EnumType.STRING)
     public final TasksStatuses status;
 
-    private enum TasksStatuses{PERFORMED, NEW, COMPLETED }
+    private enum TasksStatuses{PERFORMED, NEW, COMPLETED}
 
 }
