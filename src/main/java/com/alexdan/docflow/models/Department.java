@@ -22,6 +22,8 @@ public class Department {
     @OneToMany(targetEntity = User.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<User> employers = new ArrayList<>();
 
+
+
     public Department(){}
 
     public Department(String name) {

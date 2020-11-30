@@ -35,9 +35,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public User putUser(@PathVariable long id, @RequestBody User user){
-
-        User updatedUser = userRepository.save(user);
-        return updatedUser;
+        return userRepository.save(user);
     }
 
     @DeleteMapping("/{id}")

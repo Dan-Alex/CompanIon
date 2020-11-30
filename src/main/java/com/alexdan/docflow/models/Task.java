@@ -26,6 +26,8 @@ public class Task {
 
     private enum TasksStatuses{PERFORMED, NEW, COMPLETED}
 
+
+
     public Task(){}
 
     public Task(String name, String text, User toWhom, User fromWhom, TasksStatuses status) {
