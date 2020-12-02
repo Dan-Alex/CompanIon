@@ -5,7 +5,9 @@ import com.alexdan.docflow.models.Department;
 import com.alexdan.docflow.models.User;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Rule;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,13 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
 
 
+import java.nio.file.AccessDeniedException;
 import java.util.Optional;
 
+import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -29,7 +34,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = UserController.class)
-@WithMockUser(authorities = {"READ", "WRITE"})
+@WithMockUser(roles = {"ADMIN"})
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
 class UserControllerTest {
@@ -42,6 +47,9 @@ class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Test
     public void getUserAndStatus200Test() throws Exception {
@@ -76,8 +84,8 @@ class UserControllerTest {
         when(userRepository.save(any())).thenReturn(user);
 
         mockMvc.perform(put("/users/1", 1).
-                            content(objectMapper.writeValueAsString(user)).
-                            contentType(MediaType.APPLICATION_JSON)).
+                content(objectMapper.writeValueAsString(user)).
+                contentType(MediaType.APPLICATION_JSON)).
                 andExpect(status().isOk()).
                 andExpect(jsonPath("$.name").value("Bob")).
                 andExpect(jsonPath("$.id").value("1"));
@@ -114,4 +122,10 @@ class UserControllerTest {
                 andExpect(jsonPath("$.id").value("1"));
     }
 
+    @Test
+    @WithMockUser("hasRole('USER')")
+    public void postUserWhenRoleUserAndStatus() throws Exception {
+
+        mockMvc.perform(post("/users"));   exception.expectCause(is(instanceOf(NestedServletException.class)));
+    }
 }
