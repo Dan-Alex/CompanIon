@@ -13,14 +13,14 @@ public class Department {
     private long id;
 
     private String name;
-    private int countOfEmployers;
+    private int countOfEmployees;
 
     @OneToOne(targetEntity = User.class)
     @JoinColumn(name="chief_id")
     private User chief;
 
     @OneToMany(targetEntity = User.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    List<User> employers = new ArrayList<>();
+    List<User> employees = new ArrayList<>();
 
 
 
@@ -31,9 +31,9 @@ public class Department {
         employers = new ArrayList<User>();
     }
 
-    public void addEmployer(User user){
+    public void addEmployee(User user){
         user.setDepartment(this);
-        employers.add(user);
+        employees.add(user);
     }
     public long getId() {
         return id;
@@ -43,16 +43,16 @@ public class Department {
         return name;
     }
 
-    public int getCountOfEmployers() {
-        return employers.size();
+    public int getCountOfEmployees() {
+        return employees.size();
     }
 
     public User getChief() {
         return chief;
     }
 
-    public List<User> getEmployers() {
-        return employers;
+    public List<User> getEmployees() {
+        return employees;
     }
 
     public void setName(String name) {
@@ -63,7 +63,7 @@ public class Department {
         this.chief = chief;
     }
 
-    public void setEmployers(List<User> employers) {
-        this.employers = employers;
+    public void setEmployees(List<User> employees) {
+        this.employees = employees;
     }
 }
