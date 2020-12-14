@@ -1,7 +1,6 @@
 package com.alexdan.docflow.controllers;
 
 import com.alexdan.docflow.data.DepartmentRepository;
-import com.alexdan.docflow.data.UserRepository;
 import com.alexdan.docflow.models.Department;
 import com.alexdan.docflow.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +50,7 @@ public class DepartmentController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public User putDepartment(@PathVariable long id, @RequestBody Department department){
+    public Department putDepartment(@PathVariable long id, @RequestBody Department department){
         return departmentRepository.save(department);
     }
 
@@ -64,7 +63,7 @@ public class DepartmentController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public @ResponseBody User createDepartment(Department department, BindingResult result, HttpServletResponse responce)
+    public @ResponseBody Department createDepartment(Department department, BindingResult result, HttpServletResponse responce)
             throws BindException{
         if (result.hasErrors())
             throw new BindException(result);

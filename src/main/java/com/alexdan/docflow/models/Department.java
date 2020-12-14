@@ -28,7 +28,7 @@ public class Department {
 
     public Department(String name) {
         this.name = name;
-        employers = new ArrayList<User>();
+        employees = new ArrayList<User>();
     }
 
     public void addEmployee(User user){

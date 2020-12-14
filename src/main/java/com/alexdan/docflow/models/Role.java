@@ -15,15 +15,8 @@ public class Role implements GrantedAuthority {
 
     private String name;
 
-    @ManyToMany(targetEntity = User.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<User> users;
-
     public Role() {
     }
-
-
-
-
 
     public Role(String name) {
         this.name = name;
@@ -43,14 +36,6 @@ public class Role implements GrantedAuthority {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     @Override

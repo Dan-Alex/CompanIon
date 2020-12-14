@@ -37,8 +37,8 @@ class DepartmentRepositoryTest {
         Department department = new Department("Department 230");
         departmentRepository.save(department);
 
-        department.addEmployer(user1);
-        department.addEmployer(user2);
+        department.addEmployee(user1);
+        department.addEmployee(user2);
 
         user1.setDepartment(department);
         user2.setDepartment(department);
@@ -51,8 +51,8 @@ class DepartmentRepositoryTest {
        User user2Find = userRepository.findByUsername(user2.getUsername());
        Department departmentFind = departmentRepository.findByName(department.getName());
 
-       assertEquals(user1Find.getId(), departmentFind.getEmployers().get(0).getId());
-       assertEquals(user2Find.getId(), departmentFind.getEmployers().get(1).getId());
+       assertEquals(user1Find.getId(), departmentFind.getEmployees().get(0).getId());
+       assertEquals(user2Find.getId(), departmentFind.getEmployees().get(1).getId());
 
     }
 
