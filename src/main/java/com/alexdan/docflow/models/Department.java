@@ -35,6 +35,7 @@ public class Department {
         user.setDepartment(this);
         employees.add(user);
     }
+
     public long getId() {
         return id;
     }
@@ -65,5 +66,10 @@ public class Department {
 
     public void setEmployees(List<User> employees) {
         this.employees = employees;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

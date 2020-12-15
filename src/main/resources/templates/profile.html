@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns ="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Docflow</title>
+</head>
+<body>
+<h1>Docflow</h1>
+<p><text th:text = "${user.name}">name</text> <text th:text = "${user.surname}">name</text></p>
+<p th:text = "${user.position}"></p>
+<p th:text = "${user.department}"></p>
+<p th:text = "${user.email}"></p>
+<p th:text = "${user.phone}"></p>
+</body>
+</html>
