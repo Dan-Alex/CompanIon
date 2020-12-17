@@ -4,8 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="users")
@@ -29,6 +28,9 @@ public class User implements UserDetails {
 
     @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
     Set<Role> roles;
+
+    @OneToMany(targetEntity = Task.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    Set<Task> tasks = new LinkedHashSet<>();
 
     public User(){}
 
@@ -125,6 +127,14 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override
