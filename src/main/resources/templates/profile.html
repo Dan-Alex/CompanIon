@@ -16,7 +16,12 @@
 </table>
 <div id="tasks">
     <h2>Мои задачи</h2>
-
+    <div th:if="${user.tasks.isEmpty()}">
+        Нет задач
+    </div>
+    <ul th:each="task: ${user.getThreeTasks()}">
+        <li th:text="${task.name}">task</li>
+    </ul>
 </div>
 </body>
 </html>
