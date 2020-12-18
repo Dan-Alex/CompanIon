@@ -133,12 +133,6 @@ public class User implements UserDetails {
         return tasks;
     }
 
-    public Set<Task> getThreeTasks(){
-        Set<Task> threeTasks = new LinkedHashSet<>();
-        tasks.stream().limit(3).forEachOrdered(threeTasks::add);
-        return threeTasks;
-    }
-
     public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
