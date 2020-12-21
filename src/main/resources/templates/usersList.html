@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns ="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+
+<body>
+
+<h1>Список работников</h1>
+
+<div id = "usersList">
+<ul>
+    <li v-for="user in users">{{user.name}}</li>
+</ul>
+</div>
+
+<script src="/js/users.js"></script>
+
+</body>
+</html>
