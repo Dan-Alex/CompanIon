@@ -21,4 +21,10 @@ public class MainController {
         model.addAttribute("lastThreeTasks", taskRepository.findLastThreeTasks(user.getId()));
         return "profile";
     }
+
+    @RequestMapping("/usersList")
+    public String usersList(){
+        return "usersList";
+    }
+
 }

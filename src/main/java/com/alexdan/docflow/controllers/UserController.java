@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alexdan.docflow.exceptions.UserNotFoundException;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/users")
@@ -30,9 +32,15 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public User getUser(@PathVariable long id, Model model){
         User user = userRepository.findById(id).
-                                   orElseThrow(()-> new UserNotFoundException(id));
+                orElseThrow(()-> new UserNotFoundException(id));
         model.addAttribute(user);
         return user;
+    }
+
+    @GetMapping
+    public List<User> getAllUsers(){
+        List<User> users = (List<User>) userRepository.findAll();
+        return users;
     }
 
     @PutMapping("/{id}")
@@ -51,7 +59,7 @@ public class UserController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public @ResponseBody User createUser(User user, BindingResult result, HttpServletResponse responce)
-                                        throws BindException{
+            throws BindException{
         if (result.hasErrors())
             throw new BindException(result);
 

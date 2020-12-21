@@ -1,5 +1,7 @@
 package com.alexdan.docflow.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,7 @@ public class Department {
 
     @OneToOne(targetEntity = User.class)
     @JoinColumn(name="chief_id")
+    @JsonIgnoreProperties("department")
     private User chief;
 
     @OneToMany(targetEntity = User.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
