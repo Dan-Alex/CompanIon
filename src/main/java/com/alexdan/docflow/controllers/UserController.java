@@ -4,6 +4,7 @@ import com.alexdan.docflow.data.UserRepository;
 import com.alexdan.docflow.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
@@ -43,7 +44,7 @@ public class UserController {
         return users;
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public User putUser(@PathVariable long id, @RequestBody User user){
         return userRepository.save(user);

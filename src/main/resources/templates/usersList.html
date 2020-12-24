@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns ="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
@@ -10,10 +11,59 @@
 
 <h1>Список работников</h1>
 
-<div id = "usersList">
-<ul>
-    <li v-for="user in users">{{user.name}}</li>
-</ul>
+<div id="usersList">
+<table>
+    <thead>
+        <tr>
+            <td>Фамилия</td>
+            <td>Имя</td>
+            <td>Должность</td>
+            <td>Отдел</td>
+        </tr>
+    </thead>
+    <tbody>
+    <tr v-for="user in users" @click="showUser(user)">
+        <td>{{user.surname}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.position}}</td>
+        <td>{{user.department.name}}</td>
+    </tr>
+    </tbody>
+
+</table>
+
+<div class="details" v-if="selectedUser != ''">
+    <div v-show="showDetails">
+        {{selectedUser.surname}} {{selectedUser.name}} <br/>
+        {{selectedUser.position}}<br/>
+        {{selectedUser.department.name}}<br/>
+        {{selectedUser.email}}<br/>
+        {{selectedUser.phone}}<br/>
+    </div>
+
+    <form action="http://localhost:9090/usersList" v-show="showUpdate">
+
+        <label for="username">Имя пользователя:</label>
+        <input name="username" type="text" v-model="selectedUser.username"><br/>
+        <label for="password">Пароль:</label>
+        <input name="password" type="text" v-model="selectedUser.password"><br/>
+        <label for="name">Имя:</label>
+        <input name="name" type="text" v-model="selectedUser.name"><br/>
+        <label for="surname">Фамилия</label>
+        <input type="text" v-model="selectedUser.surname"><br/>
+        <label for="surname">Должность</label>
+        <input name="position" type="text" v-model="selectedUser.position"><br/>
+        <label for="email">Почта:</label>
+        <input name="email" type="text" v-model="selectedUser.email"><br/>
+        <label for="phone">Телефон:</label>
+        <input name="phone" type="text" v-model="selectedUser.phone"><br/>
+        <input @click="updateUser()" type="submit" value="Сохранить изменения">
+    </form>
+
+    <form sec:authorize="hasRole('ROLE_ADMIN')">
+        <input type="button" value="Изменить" @click="showUpdateUser()"/>
+    </form>
+</div>
 </div>
 
 <script src="/js/users.js"></script>

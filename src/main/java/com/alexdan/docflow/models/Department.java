@@ -19,7 +19,7 @@ public class Department {
 
     @OneToOne(targetEntity = User.class)
     @JoinColumn(name="chief_id")
-    @JsonIgnoreProperties("department")
+    @JsonIgnoreProperties(value="department", allowSetters = true)
     private User chief;
 
     @OneToMany(targetEntity = User.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)

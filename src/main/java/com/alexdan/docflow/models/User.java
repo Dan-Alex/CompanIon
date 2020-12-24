@@ -26,11 +26,11 @@ public class User implements UserDetails {
 
     @OneToOne(targetEntity = Department.class, cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
-    @JsonIgnoreProperties("employees")
+    @JsonIgnoreProperties(value={"employees", "chief"}, allowSetters = true)
     private Department department;
 
     @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("users")
+    @JsonIgnoreProperties(value="users", allowSetters = true)
     Set<Role> roles;
 
     @OneToMany(targetEntity = Task.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -130,6 +130,7 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
