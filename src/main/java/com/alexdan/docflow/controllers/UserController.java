@@ -2,6 +2,7 @@ package com.alexdan.docflow.controllers;
 
 import com.alexdan.docflow.data.UserRepository;
 import com.alexdan.docflow.models.User;
+import com.alexdan.docflow.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,10 +24,12 @@ import java.util.List;
 public class UserController {
 
     UserRepository userRepository;
+    UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository){
+    public UserController(UserRepository userRepository, UserService userService){
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/{id}")
@@ -57,17 +60,11 @@ public class UserController {
         userRepository.deleteById(id);
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public @ResponseBody User createUser(User user, BindingResult result, HttpServletResponse responce)
-            throws BindException{
-        if (result.hasErrors())
-            throw new BindException(result);
-
-        User savedUser = userRepository.save(user);
-
-        responce.setHeader("Location", "/users/" + savedUser.getId());
-        return savedUser;
+    public @ResponseBody User createUser(@RequestBody User user) {
+        System.out.println(user);
+        return userService.saveUser(user);
     }
 
 }

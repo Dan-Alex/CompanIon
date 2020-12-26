@@ -22,7 +22,8 @@ public class Department {
     @JsonIgnoreProperties(value="department", allowSetters = true)
     private User chief;
 
-    @OneToMany(targetEntity = User.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = User.class, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value="department", allowSetters = true)
     List<User> employees = new ArrayList<>();
 
 

@@ -56,7 +56,7 @@ class UserControllerTest {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
                 "b@mail.com", "345678");
-        user.setId(1);
+        //user.setId(1);
 
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
 
@@ -79,7 +79,7 @@ class UserControllerTest {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
                 "b@mail.com", "345678");
-        user.setId(1);
+       // user.setId(1);
 
         when(userRepository.save(any())).thenReturn(user);
 
@@ -96,7 +96,7 @@ class UserControllerTest {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
                 "b@mail.com", "345678");
-        user.setId(1);
+        //user.setId(1);
 
         mockMvc.perform(delete("/users/1", 1).
                 content(objectMapper.writeValueAsString(user)).
@@ -110,7 +110,7 @@ class UserControllerTest {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
                 "b@mail.com", "345678");
-        user.setId(1);
+        //user.setId(1);
 
         when(userRepository.save(any())).thenReturn(user);
 

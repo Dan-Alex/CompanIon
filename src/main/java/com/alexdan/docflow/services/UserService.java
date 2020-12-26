@@ -1,7 +1,9 @@
 package com.alexdan.docflow.services;
 
+import com.alexdan.docflow.data.DepartmentRepository;
 import com.alexdan.docflow.data.RoleRepository;
 import com.alexdan.docflow.data.UserRepository;
+import com.alexdan.docflow.models.Department;
 import com.alexdan.docflow.models.Role;
 import com.alexdan.docflow.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Autowired
+    private DepartmentRepository departmentRepository;
+
+    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -32,7 +37,12 @@ public class UserService implements UserDetailsService {
     public User saveUser(User user){
         user.setRoles(Collections.singleton(new Role("ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        Department department = departmentRepository.findByName(user.getDepartmentName());
+        user.setDepartment(department);
+        User savedUser = userRepository.save(user);
+        department.addEmployee(savedUser);
+        departmentRepository.save(department);
+        return savedUser;
     }
 
 }

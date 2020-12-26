@@ -24,16 +24,18 @@ public class User implements UserDetails {
     private String email;
     private String phone;
 
-    @OneToOne(targetEntity = Department.class, cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Department.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
-    @JsonIgnoreProperties(value={"employees", "chief"}, allowSetters = true)
+    @JsonIgnore
     private Department department;
 
-    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
-    @JsonIgnoreProperties(value="users", allowSetters = true)
+    private String departmentName;
+
+    @OneToMany(targetEntity = Role.class, cascade=CascadeType.PERSIST ,fetch = FetchType.EAGER)
+    @JsonIgnore
     Set<Role> roles;
 
-    @OneToMany(targetEntity = Task.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Task.class, fetch = FetchType.EAGER)
     @JsonIgnore
     Set<Task> tasks = new LinkedHashSet<>();
 
@@ -53,12 +55,16 @@ public class User implements UserDetails {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    //public void setId(long id) {
+        //this.id = id;
+    //}
 
     public String getUsername() {
         return username;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
     }
 
     public void setUsername(String username) {
@@ -144,22 +150,39 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", position='" + position + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", departmentName='" + departmentName + '\'' +
+                '}';
     }
 }

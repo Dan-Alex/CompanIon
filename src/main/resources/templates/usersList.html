@@ -26,7 +26,7 @@
         <td>{{user.surname}}</td>
         <td>{{user.name}}</td>
         <td>{{user.position}}</td>
-        <td>{{user.department.name}}</td>
+        <td>{{user.departmentName}}</td>
     </tr>
     </tbody>
 
@@ -36,7 +36,7 @@
     <div v-show="showDetails">
         {{selectedUser.surname}} {{selectedUser.name}} <br/>
         {{selectedUser.position}}<br/>
-        {{selectedUser.department.name}}<br/>
+        {{selectedUser.departmentName}}<br/>
         {{selectedUser.email}}<br/>
         {{selectedUser.phone}}<br/>
     </div>
@@ -60,11 +60,13 @@
         <input @click="updateUser()" type="submit" value="Сохранить изменения">
     </form>
 
-    <form sec:authorize="hasRole('ROLE_ADMIN')">
+    <form  sec:authorize="hasRole('ROLE_ADMIN')">
         <input type="button" value="Изменить" @click="showUpdateUser()"/>
     </form>
 </div>
 </div>
+
+<a th:href="@{/registration}" sec:authorize="hasRole('ROLE_ADMIN')">Зарегестрировать</a><br/>
 
 <script src="/js/users.js"></script>
 

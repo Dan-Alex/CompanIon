@@ -1,4 +1,4 @@
-const usersUrl="http://localhost:9090/users";
+const usersUrl="http://localhost:9090/users/";
 
 new Vue({
 
@@ -25,13 +25,12 @@ new Vue({
         },
 
         updateUser() {
-            fetch('http://localhost:9090/users/' + this.selectedUser.id, {
+            fetch(usersUrl + this.selectedUser.id, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(this.selectedUser
-                )
+                body: JSON.stringify(this.selectedUser)
             });
 
             this.showUpdate = false;
