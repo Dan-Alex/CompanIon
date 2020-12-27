@@ -31,8 +31,14 @@ public class TaskController {
                 orElseThrow(()-> new TaskNotFoundException(id));
     }
 
+    @PutMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public Task putUser(@PathVariable long id, @RequestBody Task task){
+        return taskRepository.save(task);
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public @ResponseBody Task createTask(@RequestBody Task task) {
         return taskRepository.save(task);
 }
