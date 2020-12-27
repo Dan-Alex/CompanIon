@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/tasks")
@@ -20,25 +21,27 @@ public class TaskController {
     TaskRepository taskRepository;
 
     @GetMapping
-    public List<Task> getAllTasks(@AuthenticationPrincipal User user){
-        return (List<Task>) user.getTasks();
+    public Set<Task> getAllTasks(@AuthenticationPrincipal User user) {
+        return taskRepository.findAllTasks(user.getId());
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public Task getTask(@PathVariable long id){
+    public Task getTask(@PathVariable long id) {
         return taskRepository.findById(id).
-                orElseThrow(()-> new TaskNotFoundException(id));
+                orElseThrow(() -> new TaskNotFoundException(id));
     }
 
-    @PutMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public Task putUser(@PathVariable long id, @RequestBody Task task){
+    public Task putUser(@PathVariable long id, @RequestBody Task task) {
         return taskRepository.save(task);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public @ResponseBody Task createTask(@RequestBody Task task) {
+    public @ResponseBody
+    Task createTask(@RequestBody Task task) {
         return taskRepository.save(task);
+    }
 }

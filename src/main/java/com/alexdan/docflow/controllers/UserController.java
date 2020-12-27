@@ -1,18 +1,16 @@
 package com.alexdan.docflow.controllers;
 
 import com.alexdan.docflow.data.UserRepository;
+import com.alexdan.docflow.models.Task;
 import com.alexdan.docflow.models.User;
 import com.alexdan.docflow.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
 
 import com.alexdan.docflow.exceptions.UserNotFoundException;
 
@@ -34,10 +32,9 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public User getUser(@PathVariable long id, Model model){
+    public User getUser(@PathVariable long id){
         User user = userRepository.findById(id).
                 orElseThrow(()-> new UserNotFoundException(id));
-        model.addAttribute(user);
         return user;
     }
 
@@ -63,7 +60,6 @@ public class UserController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public @ResponseBody User createUser(@RequestBody User user) {
-        System.out.println(user);
         return userService.saveUser(user);
     }
 

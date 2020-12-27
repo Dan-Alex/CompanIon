@@ -28,9 +28,13 @@ public class MainController {
     }
 
     @RequestMapping("/registration")
-    public String registration(Model model){
-        model.addAttribute("user2", new User());
+    public String registration(){
         return "registrationUserPage";
+    }
+
+    @RequestMapping("/myTasks")
+    public String myTasks(){
+        return "myTasks";
     }
 
 }

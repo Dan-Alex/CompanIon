@@ -1,5 +1,8 @@
 package com.alexdan.docflow.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,10 +18,12 @@ public class Task {
 
     @OneToOne(targetEntity = User.class)
     @JoinColumn(name = "toWhomUser_id")
+    @JsonIgnoreProperties(value={"username", "password", "phone", "email"}, allowSetters = true)
     private User toWhom;
 
     @OneToOne(targetEntity = User.class)
     @JoinColumn(name = "fromWhomUser_id")
+    @JsonIgnoreProperties(value={"username", "password", "phone", "email"}, allowSetters = true)
     private User fromWhom;
 
     @Enumerated(EnumType.STRING)

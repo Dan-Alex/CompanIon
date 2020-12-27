@@ -8,7 +8,7 @@
 </head>
 
 <body>
-        <form id="registration" action="http://localhost:9090/usersList">
+        <form id="registration" th:action="@{/usersList}">
 
             <label for="username">Имя пользователя:</label>
             <input name="username" type="text" v-model="user.username"><br/>

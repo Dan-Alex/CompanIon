@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns ="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Docflow</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+
+<div id="tasks">
+
+    <div id="newTasks">
+        <h3>Новые задачи</h3>
+        <ul v-for="task in tasks" v-if ="task.status ==='NEW'">
+            <li>
+                {{task.name}} <br/>
+                {{task.fromWhom.surname}} {{task.fromWhom.name}} - {{task.fromWhom.position}} {{task.fromWhom.departmentName}}
+            </li>
+        </ul>
+    </div>
+
+    <div id="performedTasks">
+        <h3>В работе</h3>
+        <ul v-for="task in tasks" v-if ="task.status ==='PERFORMED'">
+            <li>
+                {{task.name}} <br/>
+                {{task.fromWhom.surname}} {{task.fromWhom.name}} - {{task.fromWhom.position}} {{task.fromWhom.departmentName}}
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+
+<script src="/js/tasks.js"></script>
+</body>
+</html>
