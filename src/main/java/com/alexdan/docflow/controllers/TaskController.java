@@ -2,6 +2,7 @@ package com.alexdan.docflow.controllers;
 
 import com.alexdan.docflow.data.TaskRepository;
 import com.alexdan.docflow.exceptions.TaskNotFoundException;
+import com.alexdan.docflow.exceptions.UserNotFoundException;
 import com.alexdan.docflow.models.Task;
 import com.alexdan.docflow.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,15 @@ public class TaskController {
         return taskRepository.findAllTasks(user.getId());
     }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public Task putUser(@PathVariable long id, @RequestBody Task task) {
+    public Task getTask(@PathVariable long id){
+        Task task = taskRepository.findById(id).
+                orElseThrow(()-> new TaskNotFoundException(id));
+        return task;
+    }
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Task putTask(@PathVariable long id, @RequestBody Task task) {
         return taskRepository.save(task);
     }
 
