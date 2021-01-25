@@ -24,13 +24,6 @@ public class TaskController {
         return taskRepository.findAllTasks(user.getId());
     }
 
-    @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public Task getTask(@PathVariable long id) {
-        return taskRepository.findById(id).
-                orElseThrow(() -> new TaskNotFoundException(id));
-    }
-
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public Task putUser(@PathVariable long id, @RequestBody Task task) {

@@ -14,7 +14,7 @@
         <h3>Новые задачи</h3>
         <ul v-for="task in tasks" v-if ="task.status ==='NEW'">
             <li>
-                {{task.name}} <br/>
+                <a @click="selectTask(task)">{{task.name}}</a> <br/>
                 {{task.fromWhom.surname}} {{task.fromWhom.name}} - {{task.fromWhom.position}} {{task.fromWhom.departmentName}}
             </li>
         </ul>
@@ -24,11 +24,13 @@
         <h3>В работе</h3>
         <ul v-for="task in tasks" v-if ="task.status ==='PERFORMED'">
             <li>
-                {{task.name}} <br/>
+                <a @click="selectTask(task)">{{task.name}}</a> <br/>
                 {{task.fromWhom.surname}} {{task.fromWhom.name}} - {{task.fromWhom.position}} {{task.fromWhom.departmentName}}
             </li>
         </ul>
     </div>
+
+    <task-info :task="selectedTask"></task-info>
 
 </div>
 

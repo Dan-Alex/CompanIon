@@ -62,9 +62,8 @@ public class DepartmentController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public @ResponseBody User createUser(@RequestBody User user) {
-        return departmentRepository.save(user);
-    }
+    public @ResponseBody Department createUser(@RequestBody Department department) {
+        return departmentRepository.save(department);
     }
 
 }
