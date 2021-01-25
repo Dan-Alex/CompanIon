@@ -5,6 +5,7 @@ import com.alexdan.docflow.models.Department;
 import com.alexdan.docflow.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
@@ -34,17 +35,15 @@ public class DepartmentController {
     public Department getDepartment(@PathVariable long id, Model model){
         Department department = departmentRepository.findById(id).
                 orElseThrow(()-> new DepartmentNotFoundException(id));
-        model.addAttribute(department);
         return department;
     }
 
-    @GetMapping("/{id}/empoyees")
+    @GetMapping("/{id}/employees")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public List<User> getEmployees(@PathVariable long id, Model model){
         Department department = departmentRepository.findById(id).
                 orElseThrow(()-> new DepartmentNotFoundException(id));
         List<User> employees = department.getEmployees();
-        model.addAttribute(employees);
         return employees;
     }
 
@@ -61,17 +60,11 @@ public class DepartmentController {
         departmentRepository.deleteById(id);
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public @ResponseBody Department createDepartment(Department department, BindingResult result, HttpServletResponse responce)
-            throws BindException{
-        if (result.hasErrors())
-            throw new BindException(result);
-
-        Department savedDepartment = departmentRepository.save(department);
-
-        responce.setHeader("Location", "/users/" + savedDepartment.getId());
-        return savedDepartment;
+    public @ResponseBody User createUser(@RequestBody User user) {
+        return departmentRepository.save(user);
+    }
     }
 
 }
