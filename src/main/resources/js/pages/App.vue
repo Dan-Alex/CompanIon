@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <p>Helooooooooooooooooooooooooooooo</p>
+    <div class="main-app">
+        <p>Helhkhkhkhkh</p>
     </div>
 </template>
 
@@ -9,6 +9,8 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+    .main-app {
+        color: brown;
+    }
 </style>
