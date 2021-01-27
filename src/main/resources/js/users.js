@@ -1,5 +1,27 @@
 const usersUrl="http://localhost:9090/users/";
 
+
+Vue.component('users', {
+
+    props: ['users']
+
+    data() {
+        return{
+            selectedUser: '',
+        }
+    },
+
+
+    template: '<div>'+
+                '<ul>' +
+                    '<li v-if="">' +
+                        '{{user.name}} {{user.surname}} <br/>' +
+                        ' {{user.position}} {{user.departmentName}}' +
+                    '</li>' +
+                '</ul>' +
+              '</div>'
+});
+
 new Vue({
 
     el:'#usersList',

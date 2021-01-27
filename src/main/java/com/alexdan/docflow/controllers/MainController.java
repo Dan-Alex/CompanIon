@@ -38,4 +38,9 @@ public class MainController {
         return "myTasks";
     }
 
+    @RequestMapping("/index")
+    public String index() {
+        return "index";
+    }
+
 }

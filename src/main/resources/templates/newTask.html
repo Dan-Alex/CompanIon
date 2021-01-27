@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns ="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Docflow</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+
+<form th:action="@{/myTasks}">
+
+    <label for="name">Название:</label>
+    <input name="name" type="text"><br/>
+
+    <label for="toWhom">Кому:</label>
+    <input name="toWhom" type="text"><br/>
+
+    <label for="text">Текст:</label>
+    <input name="text" type="text"><br/>
+
+    <input @click="addTask()" type="submit" value="Отправить">
+</form>
+
+<script src="/js/tasks.js"></script>
+</body>
+</html>

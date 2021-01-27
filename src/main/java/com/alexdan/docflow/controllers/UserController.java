@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public User getUser(@PathVariable long id){
         User user = userRepository.findById(id).
                 orElseThrow(()-> new UserNotFoundException(id));

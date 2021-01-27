@@ -30,8 +30,10 @@ Vue.component('task-info',{
                     '<p>{{task.name}}</p>' +
                     '<p>{{task.text}}</p>' +
                     '<p> Прикрепленные файлы:</p>'+
-                    '<form action="tasksURL" v-if="task.status ===\'NEW\'"><input type="button" value="Взять в работу" @click="putNewTask"/></form>' +
-                    '<form action="tasksURL" v-if="task.status ===\'PERFORMED\'"><input type="button" value="Завершить" @click="putPerformedTask"/></form>' +
+                    '<form action="tasksURL" v-if="task.status ===\'NEW\'">' +
+                            '<input type="button" value="Взять в работу" @click="putNewTask"/></form>' +
+                    '<form action="tasksURL" v-if="task.status ===\'PERFORMED\'">' +
+                            '<input type="button" value="Завершить" @click="putPerformedTask"/></form>' +
               '</div>'
 
 })
@@ -42,7 +44,8 @@ vmTasks = new Vue({
     data() {
         return {
             tasks: [],
-            selectedTask: ''
+            selectedTask: '',
+            newTask: ''
         }
     },
 

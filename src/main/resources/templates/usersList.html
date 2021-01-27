@@ -41,7 +41,7 @@
         {{selectedUser.phone}}<br/>
     </div>
 
-    <form action="http://localhost:9090/usersList" v-show="showUpdate">
+    <form th:action="@{/usersList}" v-show="showUpdate">
 
         <label for="username">Имя пользователя:</label>
         <input name="username" type="text" v-model="selectedUser.username"><br/>
