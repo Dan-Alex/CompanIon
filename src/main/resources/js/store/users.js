@@ -60,7 +60,7 @@ export default {
         async updateUserAction({commit}, user){
             const result = await usersApi.update(user);
             const data = await result.json();
-            commit('updateUserMutation')
+            commit('updateUserMutation', data)
         },
 
         async deleteUserAction({commit}, user){
