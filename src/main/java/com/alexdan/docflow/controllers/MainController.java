@@ -13,34 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class MainController {
 
-    @Autowired
-    TaskRepository taskRepository;
-
-    @RequestMapping("/profile")
-    public String profile(Model model, @AuthenticationPrincipal User user){
-        model.addAttribute("user", user);
-        model.addAttribute("lastThreeTasks", taskRepository.findLastThreeTasks(user.getId()));
-        return "profile";
-    }
-
-    @RequestMapping("/usersList")
-    public String usersList(){
-        return "usersList";
-    }
-
-    @RequestMapping("/registration")
-    public String registration(){
-        return "registrationUserPage";
-    }
-
-    @RequestMapping("/myTasks")
-    public String myTasks(){
-        return "myTasks";
-    }
-
     @RequestMapping("/")
     public String index(Model model, @AuthenticationPrincipal User profile) {
-        if (profile !=null) {
+        if (profile != null) {
             model.addAttribute("profile", profile);
         }
         return "index";
