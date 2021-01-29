@@ -72,6 +72,10 @@ public class Department {
         this.employees = employees;
     }
 
+    public void deleteEmployee(User employee){
+        this.employees.remove(employee);
+    }
+
     @Override
     public String toString() {
         return name;
