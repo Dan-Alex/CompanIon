@@ -38,8 +38,11 @@ public class MainController {
         return "myTasks";
     }
 
-    @RequestMapping("/index")
-    public String index() {
+    @RequestMapping("/")
+    public String index(Model model, @AuthenticationPrincipal User profile) {
+        if (profile !=null) {
+            model.addAttribute("profile", profile);
+        }
         return "index";
     }
 
