@@ -1,10 +1,12 @@
 import Vue from 'vue'
-import VueResource from 'vue-resource'
+import '@babel/polyfill'
 import App from 'pages/App.vue'
+import 'api/resource'
+import store from 'store/store'
 
-Vue.use(VueResource)
 
 new Vue({
     el:"#app",
+    store,
     render: a => a(App)
 })

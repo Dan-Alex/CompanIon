@@ -3,6 +3,7 @@ package com.alexdan.docflow.services;
 import com.alexdan.docflow.data.DepartmentRepository;
 import com.alexdan.docflow.data.RoleRepository;
 import com.alexdan.docflow.data.UserRepository;
+import com.alexdan.docflow.exceptions.UserNotFoundException;
 import com.alexdan.docflow.models.Department;
 import com.alexdan.docflow.models.Role;
 import com.alexdan.docflow.models.User;
@@ -43,6 +44,15 @@ public class UserService implements UserDetailsService {
         department.addEmployee(savedUser);
         departmentRepository.save(department);
         return savedUser;
+    }
+
+    public void deleteUser(Long id){
+        User user = userRepository.findById(id).
+                orElseThrow(()-> new UserNotFoundException(id));
+        Department department = departmentRepository.findByName(user.getDepartmentName());
+        department.deleteEmployee(user);
+        departmentRepository.save(department);
+        userRepository.deleteById(id);
     }
 
 }
