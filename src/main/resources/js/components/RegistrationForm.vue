@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <form>
+        <form action="/index" method="post">
             <label for="username">Имя пользователя:</label>
                 <input name="username" type="text" v-model="user.username"><br/>
             <label for="password">Пароль:</label>
@@ -28,6 +28,9 @@
     import {mapActions} from 'vuex'
 
     export default {
+
+        props: ['userAttr'],
+
         data() {
             return {
                     user : {
@@ -42,13 +45,25 @@
                     }
                     }
                 },
+        watch: {
+            userAttr(user) {
+                this.user = user
+            }
+            },
+
         methods:{
-            ...mapActions(['addUserAction']),
+            ...mapActions(['addUserAction', 'updateUserAction']),
 
             registerUser() {
-                this.addUserAction(this.user);
-                this.user = ''
-
+                const saveUser = this.user;
+                if (saveUser.id) {
+                    this.updateUserAction(saveUser)
+                }
+                    else
+                    {
+                        this.addUserAction(saveUser)
+                    }
+                Object.keys(this.user).forEach( key => this.user[key] = '')
             }
         }
 
