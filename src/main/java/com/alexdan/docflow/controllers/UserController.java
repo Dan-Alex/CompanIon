@@ -1,15 +1,12 @@
 package com.alexdan.docflow.controllers;
 
 import com.alexdan.docflow.data.UserRepository;
-import com.alexdan.docflow.models.Task;
 import com.alexdan.docflow.models.User;
 import com.alexdan.docflow.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.alexdan.docflow.exceptions.UserNotFoundException;

@@ -2,7 +2,6 @@ package com.alexdan.docflow.controllers;
 
 import com.alexdan.docflow.data.TaskRepository;
 import com.alexdan.docflow.exceptions.TaskNotFoundException;
-import com.alexdan.docflow.exceptions.UserNotFoundException;
 import com.alexdan.docflow.models.Task;
 import com.alexdan.docflow.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
