@@ -9,5 +9,5 @@ export default {
                       },
     get: id => tasks.get({id}),
     update: task => tasks.update({id : task.id}, task),
-    remove: id => tasks.remove({id})
+    remove: task => tasks.remove({id: task.id})
 }
