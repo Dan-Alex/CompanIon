@@ -37,7 +37,7 @@ public class UserService implements UserDetailsService {
     public User updateUser(User user){
         User updUser;
         User oldUser = userRepository.findById(user.getId()).get();
-        if (!user.getDepartmentName().equals(oldUser.getDepartmentName())) {
+        if ((!user.getDepartmentName().equals(oldUser.getDepartmentName())) || (oldUser.getDepartment() == null)) {
             updUser = save(user);
         } else {
             updUser = userRepository.save(user);
