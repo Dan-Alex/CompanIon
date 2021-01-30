@@ -35,6 +35,22 @@ public class UserService implements UserDetailsService {
         throw new UsernameNotFoundException("User " + username + " not found");
     }
 
+    public User updateUser(User user){
+        User updUser;
+        User oldUser = userRepository.findById(user.getId()).get();
+        user.setPassword(oldUser.getPassword());
+        if (!user.getDepartmentName().equals(oldUser.getDepartmentName())) {
+            Department department = departmentRepository.findByName(user.getDepartmentName());
+            user.setDepartment(department);
+            updUser = userRepository.save(user);
+            department.addEmployee(updUser);
+            departmentRepository.save(department);
+        } else {
+            updUser = userRepository.save(user);
+        }
+        return updUser;
+    }
+
     public User saveUser(User user){
         user.setRoles(Collections.singleton(new Role("ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

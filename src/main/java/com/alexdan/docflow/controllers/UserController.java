@@ -44,7 +44,7 @@ public class UserController {
     @PutMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public User putUser(@PathVariable long id, @RequestBody User user){
-        return userRepository.save(user);
+        return userService.updateUser(user);
     }
 
     @DeleteMapping("/{id}")
