@@ -1,11 +1,15 @@
 <template>
 
     <div>
-        <form action="/index" method="post">
+        <h1 v-if="isUpdate">Изменить информацию пользователя</h1>
+        <h1 v-if="!isUpdate">Зарегестрировать пользователя</h1>
+        <form action="/employees" method="post">
             <label for="username">Имя пользователя:</label>
                 <input name="username" type="text" v-model="user.username"><br/>
-            <label for="password">Пароль:</label>
-                <input name="password" type="text" v-model="user.password"><br/>
+            <div v-show="!isUpdate">
+                <label for="password">Пароль:</label>
+                    <input name="password" type="text" v-model="user.password"><br/>
+            </div>
             <label for="name">Имя:</label>
                 <input name="name" type="text" v-model="user.name"><br/>
             <label for="surname">Фамилия</label>
@@ -18,7 +22,8 @@
                 <input name="email" type="text" v-model="user.email"><br/>
             <label for="phone">Телефон:</label>
                 <input name="phone" type="text" v-model="user.phone"><br/>
-            <input @click="registerUser()" type="submit" value="Зарегестрировать">
+            <input v-if="!isUpdate" @click="registerUser()" type="submit" value="Зарегестрировать">
+            <input v-if="isUpdate" @click="updateUser()" type="submit" value="Изменить">
         </form>
     </div>
 
@@ -29,7 +34,11 @@
 
     export default {
 
-        props: ['userAttr'],
+        props: {
+            userAttr: {
+                type: Object
+            }
+        },
 
         data() {
             return {
@@ -42,28 +51,31 @@
                         email: '',
                         phone: '',
                         departmentName: ''
-                    }
-                    }
-                },
-        watch: {
-            userAttr(user) {
-                this.user = user
+                    },
+                    isUpdate: false
+
             }
-            },
+        },
+
+        created() {
+            if (this.userAttr){
+                this.user = this.userAttr;
+                this.isUpdate = true;
+            }
+        },
 
         methods:{
             ...mapActions(['addUserAction', 'updateUserAction']),
 
             registerUser() {
-                const saveUser = this.user;
-                if (saveUser.id) {
-                    this.updateUserAction(saveUser)
-                }
-                    else
-                    {
-                        this.addUserAction(saveUser)
-                    }
-                Object.keys(this.user).forEach( key => this.user[key] = '')
+                        this.addUserAction(this.user)
+                        Object.keys(this.user).forEach( key => this.user[key] = '')
+            },
+
+            updateUser() {
+                        this.updateUserAction(this.user);
+                        Object.keys(this.user).forEach( key => this.user[key] = '')
+                        this.isUpdate = false;
             }
         }
 
