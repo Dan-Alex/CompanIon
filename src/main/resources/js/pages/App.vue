@@ -4,6 +4,7 @@
         <a v-if="!getProfile" href="/login">Войти</a>
         <div v-if="getProfile">
             <router-link to="/employees">Работники</router-link>
+            <router-link to="/profile">{{getProfile.name}} {{getProfile.surname}}</router-link>
             <a href="/logout">Выйти</a>
         </div>
 

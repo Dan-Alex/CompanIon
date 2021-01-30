@@ -1,8 +1,8 @@
 export default {
     state:{
-        myProfile: profile
+        profile: profile
     },
     getters: {
-        getProfile: state => state.myProfile,
+        getProfile: state => state.profile
     }
 }
