@@ -18,8 +18,6 @@ public class User implements UserDetails {
     private String username;
     private String name;
     private String surname;
-
-    @JsonIgnore
     private String password;
     private String position;
     private String email;

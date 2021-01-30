@@ -1,7 +1,6 @@
 package com.alexdan.docflow.services;
 
 import com.alexdan.docflow.data.DepartmentRepository;
-import com.alexdan.docflow.data.RoleRepository;
 import com.alexdan.docflow.data.UserRepository;
 import com.alexdan.docflow.exceptions.UserNotFoundException;
 import com.alexdan.docflow.models.Department;
@@ -38,13 +37,8 @@ public class UserService implements UserDetailsService {
     public User updateUser(User user){
         User updUser;
         User oldUser = userRepository.findById(user.getId()).get();
-        user.setPassword(oldUser.getPassword());
         if (!user.getDepartmentName().equals(oldUser.getDepartmentName())) {
-            Department department = departmentRepository.findByName(user.getDepartmentName());
-            user.setDepartment(department);
-            updUser = userRepository.save(user);
-            department.addEmployee(updUser);
-            departmentRepository.save(department);
+            updUser = save(user);
         } else {
             updUser = userRepository.save(user);
         }
@@ -54,12 +48,7 @@ public class UserService implements UserDetailsService {
     public User saveUser(User user){
         user.setRoles(Collections.singleton(new Role("ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Department department = departmentRepository.findByName(user.getDepartmentName());
-        user.setDepartment(department);
-        User savedUser = userRepository.save(user);
-        department.addEmployee(savedUser);
-        departmentRepository.save(department);
-        return savedUser;
+        return save(user);
     }
 
     public void deleteUser(Long id){
@@ -69,6 +58,15 @@ public class UserService implements UserDetailsService {
         department.deleteEmployee(user);
         departmentRepository.save(department);
         userRepository.deleteById(id);
+    }
+
+    public User save(User user) {
+        Department department = departmentRepository.findByName(user.getDepartmentName());
+        user.setDepartment(department);
+        User savedUser = userRepository.save(user);
+        department.addEmployee(savedUser);
+        departmentRepository.save(department);
+        return savedUser;
     }
 
 }
