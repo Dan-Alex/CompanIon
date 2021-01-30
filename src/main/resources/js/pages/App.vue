@@ -29,5 +29,6 @@
 <style scoped>
     .main-app {
         color: brown;
+        font-size: 18pt;
     }
 </style>
