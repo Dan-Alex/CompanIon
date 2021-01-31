@@ -2,7 +2,7 @@
     <div>
         <p>Список работников</p>
 
-        <router-link to="/registration">Зарегистрировать</router-link>
+        <router-link v-if="getRoles.includes('ROLE_ADMIN')" to="/registration">Зарегистрировать</router-link>
         <ul>
             <li v-for="user in getUsers"><User :user="user"></User></li>
         </ul>
@@ -21,7 +21,7 @@
         },
 
         computed: {
-            ...mapGetters(['getUsers'])
+            ...mapGetters(['getUsers', 'getRoles'])
         },
 
         methods: {
