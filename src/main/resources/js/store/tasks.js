@@ -3,17 +3,20 @@ import tasksApi from "../api/tasks";
 export default {
 
     state:{
-        tasks: []
+        tasks: [],
     },
 
     getters: {
         getTasks: state => state.tasks,
+        getNewTasks: state => state.tasks.filter( i => i.status === 'NEW'),
+        getPerformedTasks: state => state.tasks.filter( i => i.status === 'PERFORMED'),
+        getCompletedTasks: state => state.tasks.filter( i => i.status === 'COMPLETED')
     },
 
     mutations:{
 
         getAllTasksMutation(state, tasks){
-            state.tasks = tasks
+            state.tasks = tasks;
         },
 
         addTaskMutation(state, task){

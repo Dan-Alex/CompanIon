@@ -18,12 +18,12 @@ public class Task {
 
     @OneToOne(targetEntity = User.class)
     @JoinColumn(name = "toWhomUser_id")
-    @JsonIgnoreProperties(value={"username", "password", "phone", "email"}, allowSetters = true)
+    @JsonIgnoreProperties(value={"username", "password"}, allowSetters = true)
     private User toWhom;
 
     @OneToOne(targetEntity = User.class)
     @JoinColumn(name = "fromWhomUser_id")
-    @JsonIgnoreProperties(value={"username", "password", "phone", "email"}, allowSetters = true)
+    @JsonIgnoreProperties(value={"username", "password"}, allowSetters = true)
     private User fromWhom;
 
     @Enumerated(EnumType.STRING)
