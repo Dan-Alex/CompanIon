@@ -34,12 +34,5 @@
 </script>
 
 <style scoped>
-    #user {
 
-        width: 400px;	height: 150px;
-        background: palegreen; /* Цвет фона */
-        outline: 2px solid #000; /* Чёрная рамка */
-        border: 3px solid #fff; /* Белая рамка */
-        border-radius: 10px; /* Радиус скругления */
-    }
 </style>

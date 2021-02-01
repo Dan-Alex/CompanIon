@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Employees from '../pages/Employees.vue';
 import Profile from '../pages/Profile.vue'
 import RegistrationPage from "../pages/RegistrationPage.vue";
+import Employees from '../pages/Employees.vue';
 
-import Tasks from '../pages/Tasks.vue'
+import Tasks from '../pages/tasks/Tasks.vue'
 import New from '../pages/tasks/New.vue'
 import Performed from '../pages/tasks/Performed.vue'
 import Completed from '../pages/tasks/Completed.vue'
