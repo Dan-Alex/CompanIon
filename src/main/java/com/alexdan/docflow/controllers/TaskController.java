@@ -16,16 +16,20 @@ import java.util.Set;
 @RequestMapping("/tasks")
 public class TaskController {
 
-    @Autowired
     TaskRepository taskRepository;
 
+    @Autowired
+    public TaskController(TaskRepository taskRepository){
+        this.taskRepository = taskRepository;
+    }
     @GetMapping
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public Set<Task> getAllTasks(@AuthenticationPrincipal User user) {
         return taskRepository.findAllTasks(user.getId());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public Task getTask(@PathVariable long id){
         Task task = taskRepository.findById(id).
                 orElseThrow(()-> new TaskNotFoundException(id));
@@ -37,9 +41,8 @@ public class TaskController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public @ResponseBody
-    Task createTask(@RequestBody Task task) {
+    //@PreAuthorize("hasRole('ROLE_USER')")
+    public @ResponseBody Task createTask(@RequestBody Task task) {
         return taskRepository.save(task);
     }
 }

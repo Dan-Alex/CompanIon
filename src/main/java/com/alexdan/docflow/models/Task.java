@@ -29,10 +29,6 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TasksStatuses status;
 
-    private enum TasksStatuses{PERFORMED, NEW, COMPLETED}
-
-
-
     public Task(){}
 
     public Task(String name, String text, User toWhom, User fromWhom, TasksStatuses status) {

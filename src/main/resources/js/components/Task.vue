@@ -2,8 +2,8 @@
     <div>
         {{task.name}} <br/>
         От кого: <user :user="task.fromWhom"></user>
-        <label for="bth">Текст:</label> <input v-if="showText === false" name="btn" type="button" value="открыть" @click="showText = true"/>
-                <input v-else type="button" value="скрыть" @click="showText = false"/>
+        <label for="bth">Текст:</label> <input class="btn" v-if="showText === false" name="btn" type="button" value="открыть" @click="showText = true"/>
+                <input class="btn" v-else type="button" value="скрыть" @click="showText = false"/>
         <div v-show="showText">{{task.text}}</div> <br/>
 
             <input v-if="task.status === 'NEW'" @click="takeToWork()" type="button" value="Взять в работу">
@@ -15,7 +15,6 @@
 <script>
     import {mapActions} from 'vuex'
     import User from './User.vue';
-    import router from '../route/router'
 
     export default {
         props: {
@@ -50,5 +49,12 @@
 </script>
 
 <style scoped>
-
+    .btn {
+        background-color: white;
+        border: none;
+        outline: none;
+        text-align: center;
+        cursor: pointer;
+        font-size: 18px;
+    }
 </style>

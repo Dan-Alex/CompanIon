@@ -14,13 +14,23 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
 
 
     export default {
+
         computed:{
             ...mapGetters(['getProfile'])
+        },
+
+        methods: {
+            ...mapActions(['getAllUsersAction'])
+        },
+
+        created(){
+            this.getAllUsersAction()
         }
+
     }
 
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div id="user">
+    <div id="user" @click="click(user)">
         {{user.name}} {{user.surname}} {{user.position}} {{user.departmentName}} <br/>
         e-mail: {{user.email}} тел.: {{user.phone}} <br/>
         <div v-if="getRoles.includes('ROLE_ADMIN')">
@@ -28,6 +28,9 @@
 
             deleteUser(user) {
                 this.deleteUserAction(user);
+            },
+            click(user){
+                this.$root.$emit('selectUser', user)
             }
         },
     }
