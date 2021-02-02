@@ -26,6 +26,11 @@ public class DepartmentController {
         this.departmentRepository = departmentRepository;
     }
 
+    @GetMapping
+    public List<Department> getAllDepartments(){
+        return (List<Department>) departmentRepository.findAll();
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public Department getDepartment(@PathVariable long id, Model model){

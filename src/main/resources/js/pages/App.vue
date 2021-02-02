@@ -5,6 +5,7 @@
         <div v-if="getProfile != null">
             <router-link to="/mytasks">Мои задачи</router-link>
             <router-link to="/employees">Работники</router-link>
+            <router-link to="/departments_list">Отделы</router-link>
             <router-link to="/profile">{{getProfile.name}} {{getProfile.surname}}</router-link>
             <a href="/logout">Выйти</a>
         </div>

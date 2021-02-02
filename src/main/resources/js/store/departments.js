@@ -5,7 +5,7 @@ export default {
         departments: []
     },
     getters: {
-        getDepartments: state => state.departments,
+        getAllDepartments: state => state.departments,
     },
     mutations:{
 

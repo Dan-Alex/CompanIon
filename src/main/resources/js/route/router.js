@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Profile from '../pages/Profile.vue'
 import RegistrationPage from "../pages/RegistrationPage.vue";
 import Employees from '../pages/Employees.vue';
+import Departments from '../pages/Departments.vue'
 
 import Tasks from '../pages/tasks/Tasks.vue'
 import New from '../pages/tasks/New.vue'
@@ -12,10 +13,12 @@ import Completed from '../pages/tasks/Completed.vue'
 import Sent from '../pages/tasks/Sent.vue'
 import Create from '../pages/tasks/Create.vue'
 
+
 Vue.use(VueRouter)
 
 const routes = [
     {path: '/employees', component: Employees},
+    {path: '/departments_list', component: Departments},
     {path: '/profile', component: Profile},
     {path: '/registration', component: RegistrationPage,  name : 'registration', props:true},
     {path: '/mytasks', component: Tasks, children: [
