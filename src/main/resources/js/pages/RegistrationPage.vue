@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import UserForm from "../components/UserForm.vue"
+    import UserForm from "../components/users/UserForm.vue"
     export default {
         props: ['user'],
 

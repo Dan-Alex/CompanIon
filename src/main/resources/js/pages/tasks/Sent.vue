@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import TasksList from "../../components/TasksList.vue";
+    import TasksList from "../../components/tasks/TasksList.vue";
 
     export default {
         props: {

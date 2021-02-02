@@ -7,7 +7,7 @@
                 <input name="name" type="text" v-model="task.name"><br/>
             <label for="toWhom">Кому:</label>
                 <div name="toWhom">
-                    <find-user v-if="!isToWhomSelected"></find-user></div>
+                    <find-user class="select" v-if="!isToWhomSelected"></find-user></div>
                     <User v-if="isToWhomSelected":user="task.toWhom"></User>
             <label for="text">Текст:</label><br/>
             <textarea name="text" v-model="task.text"></textarea><br/>
@@ -17,8 +17,8 @@
 </template>
 
 <script>
-    import FindUser from '../../components/findUser.vue'
-    import User from "../../components/User.vue";
+    import FindUser from '../../components/users/findUser.vue'
+    import User from "../../components/users/User.vue";
     import {mapActions, mapGetters} from 'vuex'
 
     export default {
@@ -67,4 +67,7 @@
 
 <style scoped>
 
+    .select {
+        cursor: pointer;
+    }
 </style>

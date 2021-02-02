@@ -14,7 +14,7 @@
 
 <script>
     import {mapActions} from 'vuex'
-    import User from './User.vue';
+    import User from '../users/User.vue';
 
     export default {
         props: {

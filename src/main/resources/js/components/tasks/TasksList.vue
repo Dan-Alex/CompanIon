@@ -11,7 +11,7 @@
 </template>
 
 <script>
-    import Task from "../components/Task.vue";
+    import Task from "./Task.vue";
 
     export default {
         props: {

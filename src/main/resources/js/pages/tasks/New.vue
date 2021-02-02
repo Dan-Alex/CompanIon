@@ -10,7 +10,7 @@
 
 <script>
     import {mapGetters} from 'vuex'
-    import TasksList from "../../components/TasksList.vue";
+    import TasksList from "../../components/tasks/TasksList.vue";
 
     export default {
 
