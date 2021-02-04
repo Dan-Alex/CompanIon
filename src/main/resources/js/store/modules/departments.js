@@ -1,4 +1,4 @@
-import departmentsApi from "../api/departments";
+import departmentsApi from "../../api/departments";
 
 export default {
     state:{
