@@ -13,6 +13,7 @@
     import {mapActions, mapGetters} from "vuex";
 
     export default {
+
         props: {
             user:{
                 type: Object

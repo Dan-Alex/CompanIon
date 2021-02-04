@@ -23,12 +23,14 @@ public class UserController {
 
     @Autowired
     public UserController(UserRepository userRepository, UserService userService){
+
         this.userRepository = userRepository;
         this.userService = userService;
     }
 
     @GetMapping("/{id}")
     public User getUser(@PathVariable long id){
+
         User user = userRepository.findById(id).
                 orElseThrow(()-> new UserNotFoundException(id));
         return user;
@@ -36,6 +38,7 @@ public class UserController {
 
     @GetMapping
     public List<User> getAllUsers(){
+
         List<User> users = (List<User>) userRepository.findAll();
         return users;
     }
@@ -43,6 +46,7 @@ public class UserController {
     @PutMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public User putUser(@PathVariable long id, @RequestBody User user){
+
         return userService.updateUser(user);
     }
 
@@ -50,13 +54,14 @@ public class UserController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteUser(@PathVariable long id){
+
         userService.deleteUser(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public @ResponseBody User createUser(@RequestBody User user) {
+
         return userService.saveUser(user);
     }
-
 }

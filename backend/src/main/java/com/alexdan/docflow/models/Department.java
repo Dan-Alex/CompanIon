@@ -22,9 +22,20 @@ public class Department {
     @JsonIgnoreProperties(value="department", allowSetters = true)
     private User chief;
 
-    @OneToMany(targetEntity = User.class, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="department", fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value="department", allowSetters = true)
     List<User> employees = new ArrayList<>();
+
+    public void addEmployee(User user){
+
+        user.setDepartment(this);
+        employees.add(user);
+    }
+
+    public void deleteEmployee(User employee){
+
+        this.employees.remove(employee);
+    }
 
 
 
@@ -35,11 +46,6 @@ public class Department {
         employees = new ArrayList<User>();
     }
 
-    public void addEmployee(User user){
-        user.setDepartment(this);
-        employees.add(user);
-    }
-
     public long getId() {
         return id;
     }
@@ -47,6 +53,8 @@ public class Department {
     public String getName() {
         return name;
     }
+
+    public void setName(String name) { this.name = name; }
 
     public int getCountOfEmployees() {
         return employees.size();
@@ -56,28 +64,16 @@ public class Department {
         return chief;
     }
 
-    public List<User> getEmployees() {
-        return employees;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setChief(User chief) {
         this.chief = chief;
     }
+
+    public List<User> getEmployees() { return employees; }
 
     public void setEmployees(List<User> employees) {
         this.employees = employees;
     }
 
-    public void deleteEmployee(User employee){
-        this.employees.remove(employee);
-    }
 
-    @Override
-    public String toString() {
-        return name;
-    }
+
 }

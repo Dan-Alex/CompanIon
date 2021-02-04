@@ -28,6 +28,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
+
         User user = userRepository.findByUsername(username);
         if (user != null)
             return user;
@@ -35,6 +36,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User updateUser(User user){
+
         User updUser;
         User oldUser = userRepository.findById(user.getId()).get();
         if ((!user.getDepartmentName().equals(oldUser.getDepartmentName())) || (oldUser.getDepartment() == null)) {
@@ -46,12 +48,14 @@ public class UserService implements UserDetailsService {
     }
 
     public User saveUser(User user){
-        user.setRoles(Collections.singleton(new Role("ROLE_USER")));
+
+        user.setRoles(Collections.singleton(new Role(1L,"ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return save(user);
     }
 
     public void deleteUser(Long id){
+
         User user = userRepository.findById(id).
                 orElseThrow(()-> new UserNotFoundException(id));
         Department department = departmentRepository.findByName(user.getDepartmentName());
@@ -61,6 +65,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User save(User user) {
+
         Department department = departmentRepository.findByName(user.getDepartmentName());
         user.setDepartment(department);
         User savedUser = userRepository.save(user);

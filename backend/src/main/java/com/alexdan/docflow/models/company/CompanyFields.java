@@ -16,6 +16,8 @@ public class CompanyFields {
     @ManyToOne(fetch=FetchType.EAGER)
     private Company company;
 
+
+
     public CompanyFields() {}
 
     public CompanyFields(String name, String body) {
@@ -49,14 +51,5 @@ public class CompanyFields {
 
     public void setCompany(Company company) {
         this.company = company;
-    }
-
-    @Override
-    public String toString() {
-        return "CompanyFields{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", body='" + body + '\''+
-                '}';
     }
 }

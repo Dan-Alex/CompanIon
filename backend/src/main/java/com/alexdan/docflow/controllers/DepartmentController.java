@@ -23,34 +23,30 @@ public class DepartmentController {
 
     @Autowired
     public DepartmentController(DepartmentRepository departmentRepository){
+
         this.departmentRepository = departmentRepository;
     }
 
     @GetMapping
     public List<Department> getAllDepartments(){
+
         return (List<Department>) departmentRepository.findAll();
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public Department getDepartment(@PathVariable long id, Model model){
+    public Department getDepartment(@PathVariable long id){
+
         Department department = departmentRepository.findById(id).
                 orElseThrow(()-> new DepartmentNotFoundException(id));
         return department;
     }
 
-    @GetMapping("/{id}/employees")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public List<User> getEmployees(@PathVariable long id, Model model){
-        Department department = departmentRepository.findById(id).
-                orElseThrow(()-> new DepartmentNotFoundException(id));
-        List<User> employees = department.getEmployees();
-        return employees;
-    }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Department putDepartment(@PathVariable long id, @RequestBody Department department){
+
         return departmentRepository.save(department);
     }
 
@@ -58,13 +54,14 @@ public class DepartmentController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteDepartment(@PathVariable long id){
+
         departmentRepository.deleteById(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public @ResponseBody Department createUser(@RequestBody Department department) {
+
         return departmentRepository.save(department);
     }
-
 }

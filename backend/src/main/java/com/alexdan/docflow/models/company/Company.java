@@ -21,6 +21,18 @@ public class Company {
     @JsonIgnoreProperties(value="company", allowSetters = true)
     List<CompanyFields> fields;
 
+    public void addField(CompanyFields field){
+        this.fields.add(field);
+        field.setCompany(this);
+    }
+
+    public void removeField (CompanyFields field){
+        this.fields.remove(field);
+        field.setCompany(null);
+    }
+
+
+
     public Company(){
         this.fields = new ArrayList<>();
     }
@@ -45,22 +57,5 @@ public class Company {
         this.fields = fields;
     }
 
-    public void addField(CompanyFields field){
-        this.fields.add(field);
-        field.setCompany(this);
-    }
 
-    public void removeField (CompanyFields field){
-        this.fields.remove(field);
-        field.setCompany(null);
-    }
-
-    @Override
-    public String toString() {
-        return "Company{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", fields=" + fields.toString() +
-                '}';
-    }
 }

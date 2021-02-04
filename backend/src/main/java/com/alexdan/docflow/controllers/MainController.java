@@ -14,6 +14,7 @@ public class MainController {
 
     @RequestMapping("/")
     public String index(Model model, @AuthenticationPrincipal User profile) {
+
         if (profile != null) {
             Set<String> roles = new LinkedHashSet<>();
             profile.getAuthorities().forEach( role -> {
@@ -24,5 +25,4 @@ public class MainController {
         }
         return "index";
     }
-
 }

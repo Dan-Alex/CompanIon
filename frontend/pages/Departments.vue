@@ -16,13 +16,13 @@
     import FindDepartment from "../components/departments/findDepartment.vue";
 
     export default {
-        computed: mapGetters(['getAllDepartments']),
 
         components: {
             Department,
             FindDepartment
-        }
+        },
 
+        computed: mapGetters(['getAllDepartments'])
     }
 </script>
 

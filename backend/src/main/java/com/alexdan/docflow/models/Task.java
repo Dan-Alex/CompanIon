@@ -28,6 +28,8 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TasksStatuses status;
 
+
+
     public Task(){}
 
     public Task(String name, String text, User toWhom, User fromWhom, TasksStatuses status) {

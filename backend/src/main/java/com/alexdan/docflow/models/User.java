@@ -23,16 +23,17 @@ public class User implements UserDetails {
     private String email;
     private String phone;
 
-    @ManyToOne(targetEntity = Department.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "department_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnore
     private Department department;
 
     private String departmentName;
 
-    @OneToMany(targetEntity = Role.class, cascade=CascadeType.PERSIST ,fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JsonIgnore
     Set<Role> roles;
+
+
 
     public User(){}
 
@@ -49,10 +50,6 @@ public class User implements UserDetails {
     public long getId() {
         return id;
     }
-
-    //public void setId(long id) {
-        //this.id = id;
-    //}
 
     public String getUsername() {
         return username;
@@ -160,16 +157,4 @@ public class User implements UserDetails {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", position='" + position + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", departmentName='" + departmentName + '\'' +
-                '}';
-    }
 }
