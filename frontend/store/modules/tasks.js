@@ -1,4 +1,4 @@
-import tasksApi from "../../api/tasks";
+import tasksApi from "../../resource/api/tasks";
 
 export default {
 

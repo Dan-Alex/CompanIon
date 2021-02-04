@@ -14,11 +14,11 @@
 
     export default {
 
-        computed: mapGetters(['getNewTasks']),
-
         components: {
             TasksList
-        }
+        },
+
+        computed: mapGetters(['getNewTasks'])
     }
 </script>
 

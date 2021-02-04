@@ -41,6 +41,10 @@
             }
         },
 
+        components: {
+            FindDepartment
+        },
+
         data() {
             return {
                     user : {
@@ -70,10 +74,6 @@
 
             if (this.user.departmentName !== '')
                     this.isDepartmentSelected= true
-        },
-
-        components: {
-            FindDepartment
         },
 
         methods:{

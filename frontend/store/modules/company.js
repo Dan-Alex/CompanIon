@@ -1,6 +1,7 @@
-import companyAPI from "../../api/company"
+import companyAPI from "../../resource/api/company"
 
 export default {
+
     state: {
         company: {}
     },

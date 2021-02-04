@@ -9,6 +9,7 @@
 <script>
     import UserForm from "../components/users/UserForm.vue"
     export default {
+
         props: ['user'],
 
         components:{

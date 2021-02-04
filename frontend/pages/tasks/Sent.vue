@@ -12,6 +12,7 @@
     import TasksList from "../../components/tasks/TasksList.vue";
 
     export default {
+
         props: {
             tasks: Array
         },

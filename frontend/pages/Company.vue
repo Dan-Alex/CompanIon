@@ -29,6 +29,7 @@
     import {mapGetters, mapActions} from 'vuex'
 
     export default {
+
         data() {
             return{
                 company: {
@@ -50,8 +51,6 @@
                 this.isUpdate = false;
             }
         },
-
-
 
         created(){
             this.company = this.getCompany

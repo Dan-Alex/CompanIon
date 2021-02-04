@@ -1,12 +1,15 @@
-import departmentsApi from "../../api/departments";
+import departmentsApi from "../../resource/api/departments";
 
 export default {
+
     state:{
         departments: []
     },
+
     getters: {
         getAllDepartments: state => state.departments,
     },
+
     mutations:{
 
         getAllDepartmentsMutation(state, departments){

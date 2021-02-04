@@ -18,20 +18,21 @@
     import User from '../users/User.vue'
 
     export default {
+
         props: {
             department:{
                 type: Object
             }
         },
 
+        components:{
+            User
+        },
+
         data() {
             return{
                 select: false
             }
-        },
-
-        components:{
-            User
         },
 
         methods:{

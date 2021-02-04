@@ -5,8 +5,8 @@ const tasks= Vue.resource('/tasks{/id}')
 export default {
     add: task => tasks.save({}, task),
     getAll: function(){
-                        return tasks.get({})
-                      },
+                return tasks.get({})
+            },
     get: id => tasks.get({id}),
     update: task => tasks.update({id : task.id}, task),
     remove: task => tasks.remove({id: task.id})

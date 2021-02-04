@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import '@babel/polyfill'
-import App from './pages/App.vue'
-import './api/resource'
+import './resource/resource'
 import store from './store/store'
 import router from './route/router'
-
+import App from './pages/App.vue'
 
 new Vue({
     el:"#app",

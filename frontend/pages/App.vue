@@ -34,7 +34,6 @@
             this.getCompanyAction();
             this.getAllDepartmentsAction()
         }
-
     }
 
 </script>

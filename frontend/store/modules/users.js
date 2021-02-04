@@ -1,12 +1,15 @@
-import usersApi from "../../api/users";
+import usersApi from "../../resource/api/users";
 
 export default {
+
     state:{
         users: []
     },
+
     getters: {
         getUsers: state => state.users,
     },
+
     mutations:{
 
         getAllUsersMutation(state, users){
@@ -35,10 +38,9 @@ export default {
                             ...state.users.slice(0, delIndex),
                             ...state.users.slice(delIndex+1)
                           ]
-        },
+        }
+    },
 
-    }
-    ,
     actions: {
 
         async getAllUsersAction({commit}){
@@ -68,8 +70,6 @@ export default {
             if (result.ok) {
                 commit('deleteUserMutation', user)
             }
-        },
-
-
+        }
     }
 }

@@ -17,18 +17,19 @@
     import User from '../users/User.vue';
 
     export default {
+
         props: {
             task: Object
+        },
+
+        components: {
+            User
         },
 
         data() {
             return {
                 showText: false
             }
-        },
-
-        components: {
-            User
         },
 
         methods:{

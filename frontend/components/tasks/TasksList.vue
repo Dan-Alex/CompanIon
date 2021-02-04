@@ -14,6 +14,7 @@
     import Task from "./Task.vue";
 
     export default {
+
         props: {
             name: String,
             tasks: Array
@@ -22,7 +23,6 @@
         components: {
             Task
         }
-
     }
 </script>
 

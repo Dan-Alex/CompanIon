@@ -22,6 +22,12 @@
     import {mapActions, mapGetters} from 'vuex'
 
     export default {
+
+        components: {
+            FindUser,
+            User
+        },
+
         data() {
             return {
                 task: {
@@ -35,12 +41,14 @@
             }
         },
 
-        components: {
-            FindUser,
-            User
-        },
-
         computed: mapGetters(['getProfile']),
+
+        created() {
+            this.$root.$on('selectUser', (selectedUser) => {
+                this.task.toWhom = selectedUser;})
+            if (this.task.toWhom !== '')
+                this.isToWhomSelected = true
+        },
 
         methods: {
             ...mapActions(['addTaskAction']),
@@ -53,13 +61,6 @@
                 delete this.task.toWhom.username;
                 this.addTaskAction(this.task);
             }
-        },
-
-        created() {
-            this.$root.$on('selectUser', (selectedUser) => {
-                this.task.toWhom = selectedUser;})
-                if (this.task.toWhom !== '')
-                    this.isToWhomSelected = true
         }
     }
 </script>
