@@ -7,8 +7,8 @@
                 <input name="name" type="text" v-model="task.name"><br/>
             <label for="toWhom">Кому:</label>
                 <div name="toWhom">
-                    <find-user class="select" v-if="!isToWhomSelected"></find-user></div>
-                    <User v-if="isToWhomSelected":user="task.toWhom"></User>
+                    <find-user class="select" v-if="task.toWhom == ''"></find-user></div>
+                    <User v-if="task.toWhom !== ''" :user="task.toWhom"></User>
             <label for="text">Текст:</label><br/>
             <textarea name="text" v-model="task.text"></textarea><br/>
             <input type="submit" @click="addTask()">
@@ -36,8 +36,7 @@
                     fromWhom: '',
                     text:'',
                     status: 'NEW'
-                },
-                isToWhomSelected: false
+                }
             }
         },
 
@@ -46,8 +45,6 @@
         created() {
             this.$root.$on('selectUser', (selectedUser) => {
                 this.task.toWhom = selectedUser;})
-            if (this.task.toWhom !== '')
-                this.isToWhomSelected = true
         },
 
         methods: {

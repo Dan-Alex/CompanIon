@@ -17,7 +17,7 @@
             <label for="surname">Должность:</label>
                 <input name="position" type="text" v-model="user.position"><br/>
             <label>Отдел:</label> {{user.departmentName}}
-            <find-department v-if="!isDepartmentSelected"></find-department>
+            <find-department v-if="user.departmentName === ''"></find-department>
             <label for="email">Почта:</label>
                 <input name="email" type="text" v-model="user.email"><br/>
             <label for="phone">Телефон:</label>
@@ -58,8 +58,6 @@
                         departmentName: ''
                     },
                     isUpdate: false,
-                    isDepartmentSelected: false
-
             }
         },
 
@@ -71,9 +69,6 @@
 
             this.$root.$on('selectDepartment', (selectedDepartment) => {
                 this.user.departmentName = selectedDepartment.name});
-
-            if (this.user.departmentName !== '')
-                    this.isDepartmentSelected= true
         },
 
         methods:{
