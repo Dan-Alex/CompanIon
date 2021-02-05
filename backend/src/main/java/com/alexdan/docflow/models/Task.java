@@ -1,8 +1,10 @@
 package com.alexdan.docflow.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "tasks")
@@ -28,7 +30,17 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TasksStatuses status;
 
+    @OneToMany(mappedBy="task", cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore
+    List<Document> files;
 
+    public List<Document> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<Document> files) {
+        this.files = files;
+    }
 
     public Task(){}
 

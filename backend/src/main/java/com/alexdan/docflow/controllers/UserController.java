@@ -1,7 +1,9 @@
 package com.alexdan.docflow.controllers;
 
+import com.alexdan.docflow.data.UserFileRepository;
 import com.alexdan.docflow.data.UserRepository;
 import com.alexdan.docflow.models.User;
+import com.alexdan.docflow.models.Document;
 import com.alexdan.docflow.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +22,14 @@ public class UserController {
 
     UserRepository userRepository;
     UserService userService;
+    UserFileRepository userFileRepository;
 
     @Autowired
-    public UserController(UserRepository userRepository, UserService userService){
+    public UserController(UserRepository userRepository, UserService userService, UserFileRepository userFileRepository){
 
         this.userRepository = userRepository;
         this.userService = userService;
+        this.userFileRepository = userFileRepository;
     }
 
     @GetMapping("/{id}")
@@ -63,5 +67,25 @@ public class UserController {
     public @ResponseBody User createUser(@RequestBody User user) {
 
         return userService.saveUser(user);
+    }
+
+    @GetMapping("/{id}/files")
+    public List<Document> getUserFiles(@PathVariable long id){
+
+        User user = userRepository.findById(id).
+                orElseThrow(()-> new UserNotFoundException(id));
+        return user.getFiles();
+    }
+
+    @PostMapping(value="/{id}/files", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Document addFile(@PathVariable long id, @RequestBody Document file){
+
+        User user = userRepository.findById(id).
+                orElseThrow(()-> new UserNotFoundException(id));
+        file.setUser(user);
+        Document savedFile = userFileRepository.save(file);
+        user.addFile(savedFile);
+        userRepository.save(user);
+        return savedFile;
     }
 }
