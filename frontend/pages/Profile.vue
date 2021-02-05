@@ -5,7 +5,6 @@
         <p> {{getProfile.departmentName}}</p>
         <p> {{getProfile.email}}</p>
         <p> {{getProfile.phone}}</p>
-        <p> {{getRoles}}</p>
     </div>
 </template>
 
@@ -13,7 +12,8 @@
     import {mapGetters} from 'vuex'
 
     export default {
-        computed: mapGetters(['getProfile', 'getRoles'])
+
+        computed: mapGetters(['getProfile', 'getRoles']),
     }
 </script>
 

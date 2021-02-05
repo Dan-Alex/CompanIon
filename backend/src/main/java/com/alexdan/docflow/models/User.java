@@ -33,6 +33,13 @@ public class User implements UserDetails {
     @JsonIgnore
     Set<Role> roles;
 
+    @OneToMany(mappedBy="user", cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore
+    List<Document> files;
+
+    public void addFile(Document newFile){
+        this.files.add(newFile);
+    }
 
 
     public User(){}
@@ -45,6 +52,7 @@ public class User implements UserDetails {
         this.position = position;
         this.email = email;
         this.phone = phone;
+        this.files = new ArrayList<>();
     }
 
     public long getId() {
@@ -125,6 +133,14 @@ public class User implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Document> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<Document> files) {
+        this.files = files;
     }
 
     @Override

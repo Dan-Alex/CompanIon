@@ -6,6 +6,7 @@ import Tasks from './modules/tasks'
 import Profile from './modules/profile'
 import Departments from './modules/departments'
 import Company from './modules/company'
+import UserFiles from './modules/userFiles'
 
 
 Vue.use(Vuex)
@@ -17,7 +18,8 @@ export default new Vuex.Store({
         Tasks,
         Profile,
         Departments,
-        Company
+        Company,
+        UserFiles
     }
 })
 

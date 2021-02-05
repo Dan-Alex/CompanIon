@@ -10,7 +10,7 @@ export default {
         getUsers: state => state.users,
     },
 
-    mutations:{
+    mutations: {
 
         getAllUsersMutation(state, users){
             state.users = users

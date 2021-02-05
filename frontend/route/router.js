@@ -13,12 +13,13 @@ import Performed from '../pages/tasks/Performed.vue'
 import Completed from '../pages/tasks/Completed.vue'
 import Sent from '../pages/tasks/Sent.vue'
 import Create from '../pages/tasks/Create.vue'
+import MyFiles from "../pages/MyFiles.vue";
 
 
 Vue.use(VueRouter)
 
 const routes = [
-    {path: '/mytasks', component: Tasks, children: [
+    {path: '/my_tasks', component: Tasks, children: [
                                             {path:'new', component: New, name: 'new'},
                                             {path:'performed', component: Performed, name: 'performed'},
                                             {path:'completed', component: Completed, name: 'completed'},
@@ -29,6 +30,7 @@ const routes = [
     {path: '/employees', component: Employees},
     {path: '/departments_list', component: Departments},
     {path:'/about_company', component: Company},
+    {path: '/my_files', component: MyFiles},
     {path: '/profile', component: Profile},
     {path: '/registration', component: RegistrationPage,  name : 'registration', props:true},
 
