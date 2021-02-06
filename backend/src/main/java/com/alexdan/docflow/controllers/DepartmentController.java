@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/departments")
 public class DepartmentController {
 
-    DepartmentRepository departmentRepository;
+    private final DepartmentRepository departmentRepository;
 
     @Autowired
     public DepartmentController(DepartmentRepository departmentRepository){
@@ -37,9 +37,8 @@ public class DepartmentController {
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public Department getDepartment(@PathVariable long id){
 
-        Department department = departmentRepository.findById(id).
+        return departmentRepository.findById(id).
                 orElseThrow(()-> new DepartmentNotFoundException(id));
-        return department;
     }
 
 

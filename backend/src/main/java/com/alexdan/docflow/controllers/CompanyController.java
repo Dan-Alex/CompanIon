@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/company")
 public class CompanyController {
 
-    CompanyRepository companyRepository;
-    CompanyFieldsRepository companyFieldsRepository;
+    private final CompanyRepository companyRepository;
+    private final CompanyFieldsRepository companyFieldsRepository;
 
     @Autowired
     public CompanyController(CompanyRepository companyRepository, CompanyFieldsRepository companyFieldsRepository) {
