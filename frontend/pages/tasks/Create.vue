@@ -2,7 +2,6 @@
     <div>
         <h2>Создать задачу</h2>
 
-        <form action="/mytasks/create" method="post">
             <label for="name">Название:</label>
                 <input name="name" type="text" v-model="task.name"><br/>
             <label for="toWhom">Кому:</label>
@@ -11,8 +10,8 @@
                     <User v-if="task.toWhom !== ''" :user="task.toWhom"></User>
             <label for="text">Текст:</label><br/>
             <textarea name="text" v-model="task.text"></textarea><br/>
-            <input type="submit" @click="addTask()">
-        </form>
+            <input type="file" id="file"><br/>
+            <input type="button" @click="addTask()">
     </div>
 </template>
 
@@ -35,7 +34,8 @@
                     toWhom: '',
                     fromWhom: '',
                     text:'',
-                    status: 'NEW'
+                    status: 'NEW',
+                    files: []
                 }
             }
         },
@@ -52,11 +52,14 @@
 
             addTask(){
                 this.task.fromWhom = this.getProfile;
+                const file = document.getElementById('file').files[0];
                 delete this.task.fromWhom.password;
                 delete this.task.fromWhom.username;
                 delete this.task.toWhom.password;
                 delete this.task.toWhom.username;
-                this.addTaskAction(this.task);
+                this.addTaskAction({
+                                    task: this.task,
+                                    file: file});
             }
         }
     }

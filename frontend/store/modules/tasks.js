@@ -1,4 +1,5 @@
 import tasksApi from "../../resource/api/tasks";
+import filesAPI from "../../resource/api/files";
 
 export default {
 
@@ -54,8 +55,13 @@ export default {
             }
         },
 
-        async addTaskAction({commit}, task){
-            const result = await tasksApi.add(task);
+        async addTaskAction({commit},body){
+            const formData= new FormData();
+            formData.append('file', body.file);
+            const result1 = await filesAPI.add(formData);
+            const savedFile = await result1.json();
+            body.task.files.push(savedFile);
+            const result = await tasksApi.add(body.task);
             const data = await result.json();
             if (result.ok) {
                 commit('addTaskMutation', data)

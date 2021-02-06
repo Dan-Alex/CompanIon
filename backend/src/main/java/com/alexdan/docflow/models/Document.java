@@ -56,4 +56,12 @@ public class Document {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
 }

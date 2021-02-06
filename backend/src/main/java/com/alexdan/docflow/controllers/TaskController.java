@@ -1,5 +1,6 @@
 package com.alexdan.docflow.controllers;
 
+import com.alexdan.docflow.data.DocumentRepository;
 import com.alexdan.docflow.data.TaskRepository;
 import com.alexdan.docflow.exceptions.TaskNotFoundException;
 import com.alexdan.docflow.models.Task;
@@ -12,16 +13,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
+
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
 
     TaskRepository taskRepository;
+    DocumentRepository documentRepository;
 
     @Autowired
-    public TaskController(TaskRepository taskRepository){
+    public TaskController(TaskRepository taskRepository, DocumentRepository documentRepository){
 
         this.taskRepository = taskRepository;
+        this.documentRepository= documentRepository;
     }
 
     @GetMapping
@@ -50,6 +54,11 @@ public class TaskController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public @ResponseBody Task createTask(@RequestBody Task task) {
 
-        return taskRepository.save(task);
+        Task savedTask = taskRepository.save(task);
+        task.getDocuments().forEach(document -> {
+            document.setTask(savedTask);
+            documentRepository.save(document);
+        });
+        return savedTask;
     }
 }

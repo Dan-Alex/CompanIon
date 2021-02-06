@@ -31,16 +31,13 @@ public class Task {
     private TasksStatuses status;
 
     @OneToMany(mappedBy="task", cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonIgnore
-    List<Document> files;
+    List<Document> documents;
 
-    public List<Document> getFiles() {
-        return files;
+    public void addDocument(Document document){
+        this.documents.add(document);
     }
 
-    public void setFiles(List<Document> files) {
-        this.files = files;
-    }
+
 
     public Task(){}
 
@@ -98,5 +95,13 @@ public class Task {
 
     public void setStatus(TasksStatuses status) {
         this.status = status;
+    }
+
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setFiles(List<Document> documents) {
+        this.documents = documents;
     }
 }
