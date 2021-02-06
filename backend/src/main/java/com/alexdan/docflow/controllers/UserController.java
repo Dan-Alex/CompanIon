@@ -1,7 +1,5 @@
 package com.alexdan.docflow.controllers;
 
-import com.alexdan.docflow.data.UserFileRepository;
-import com.alexdan.docflow.data.UserRepository;
 import com.alexdan.docflow.models.User;
 import com.alexdan.docflow.models.Document;
 import com.alexdan.docflow.services.UserService;
@@ -11,8 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.alexdan.docflow.exceptions.UserNotFoundException;
-
 import java.util.List;
 
 
@@ -20,31 +16,24 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    UserRepository userRepository;
-    UserService userService;
-    UserFileRepository userFileRepository;
+    private UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository, UserService userService, UserFileRepository userFileRepository){
+    public UserController(UserService userService){
 
-        this.userRepository = userRepository;
         this.userService = userService;
-        this.userFileRepository = userFileRepository;
     }
 
     @GetMapping("/{id}")
     public User getUser(@PathVariable long id){
 
-        User user = userRepository.findById(id).
-                orElseThrow(()-> new UserNotFoundException(id));
-        return user;
+        return userService.getUser(id);
     }
 
     @GetMapping
     public List<User> getAllUsers(){
 
-        List<User> users = (List<User>) userRepository.findAll();
-        return users;
+        return userService.getAllUsers();
     }
 
     @PutMapping(value="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -72,20 +61,12 @@ public class UserController {
     @GetMapping("/{id}/files")
     public List<Document> getUserFiles(@PathVariable long id){
 
-        User user = userRepository.findById(id).
-                orElseThrow(()-> new UserNotFoundException(id));
-        return user.getFiles();
+        return userService.getUsersDocuments(id);
     }
 
     @PostMapping(value="/{id}/files", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Document addFile(@PathVariable long id, @RequestBody Document file){
+    public Document addFile(@PathVariable long id, @RequestBody Document document){
 
-        User user = userRepository.findById(id).
-                orElseThrow(()-> new UserNotFoundException(id));
-        file.setUser(user);
-        Document savedFile = userFileRepository.save(file);
-        user.addFile(savedFile);
-        userRepository.save(user);
-        return savedFile;
+        return userService.addFile(id, document);
     }
 }
