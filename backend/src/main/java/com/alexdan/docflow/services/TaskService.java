@@ -36,15 +36,13 @@ public class TaskService {
 
     public Task saveTask(Task task){
 
-        return taskRepository.save(task);
-    }
-
-    public Task addTask(Task task){
         Task savedTask = taskRepository.save(task);
         task.getDocuments().forEach(document -> {
             document.setTask(savedTask);
             documentRepository.save(document);
         });
+
         return savedTask;
     }
+
 }

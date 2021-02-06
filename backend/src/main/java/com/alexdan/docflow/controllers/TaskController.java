@@ -48,6 +48,6 @@ public class TaskController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public @ResponseBody Task createTask(@RequestBody Task task) {
 
-        return taskService.addTask(task);
+        return taskService.saveTask(task);
     }
 }
