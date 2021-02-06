@@ -56,7 +56,6 @@ export default {
         },
 
         async addTaskAction({commit},task){
-            console.log(task.files)
             for (let i = 0; i < task.files.length; i++) {
                 const formData = new FormData();
                 formData.append('file', task.files[i]);
