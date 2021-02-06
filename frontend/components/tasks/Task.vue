@@ -5,7 +5,10 @@
         <label for="bth">Текст:</label> <input class="btn" v-if="showText === false" name="btn" type="button" value="открыть" @click="showText = true"/>
                 <input class="btn" v-else type="button" value="скрыть" @click="showText = false"/>
         <div v-show="showText">{{task.text}}</div> <br/>
-
+        <label for="files">Прикрепленные файлы:</label>
+            <ul name="files">
+                <li v-for="file in task.documents"><a :href="'/files/'+file.filename">{{file.shortName}}</a></li>
+            </ul>
             <input v-if="task.status === 'NEW'" @click="takeToWork()" type="button" value="Взять в работу">
 
             <input v-if="task.status === 'PERFORMED'" @click="complete()" type="button" value="Завершить" >

@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Создать задачу</h2>
-
+    <form action="/my_tasks/create">
             <label for="name">Название:</label>
                 <input name="name" type="text" v-model="task.name"><br/>
             <label for="toWhom">Кому:</label>
@@ -10,8 +10,18 @@
                     <User v-if="task.toWhom !== ''" :user="task.toWhom"></User>
             <label for="text">Текст:</label><br/>
             <textarea name="text" v-model="task.text"></textarea><br/>
-            <input type="file" id="file"><br/>
-            <input type="button" @click="addTask()">
+            <label for="files">Прикрепить файлы:</label>
+                <div name="files">
+                    <input type="button" value="Добавить файл" @click="task.files.push('')">
+                    <ul>
+                        <li v-for="file in task.files">
+                            <input type="file" class="file">
+                        </li>
+                    </ul>
+                </div>
+
+            <input type="button" value="Отправить" @click="addTask()">
+        </form>
     </div>
 </template>
 
@@ -52,14 +62,16 @@
 
             addTask(){
                 this.task.fromWhom = this.getProfile;
-                const file = document.getElementById('file').files[0];
+
+               for (let i = 0; i < this.task.files.length; i++) {
+                    this.task.files[i] = document.getElementsByClassName('file')[i].files[0];
+                }
+
                 delete this.task.fromWhom.password;
                 delete this.task.fromWhom.username;
                 delete this.task.toWhom.password;
                 delete this.task.toWhom.username;
-                this.addTaskAction({
-                                    task: this.task,
-                                    file: file});
+                this.addTaskAction(this.task);
             }
         }
     }

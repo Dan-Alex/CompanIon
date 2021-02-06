@@ -55,13 +55,15 @@ export default {
             }
         },
 
-        async addTaskAction({commit},body){
-            const formData= new FormData();
-            formData.append('file', body.file);
-            const result1 = await filesAPI.add(formData);
-            const savedFile = await result1.json();
-            body.task.files.push(savedFile);
-            const result = await tasksApi.add(body.task);
+        async addTaskAction({commit},task){
+            console.log(task.files)
+            for (let i = 0; i < task.files.length; i++) {
+                const formData = new FormData();
+                formData.append('file', task.files[i]);
+                const result1 = await filesAPI.add(formData);
+                task.files[i] = await result1.json();
+            }
+            const result = await tasksApi.add(task);
             const data = await result.json();
             if (result.ok) {
                 commit('addTaskMutation', data)
