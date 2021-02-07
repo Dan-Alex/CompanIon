@@ -1,6 +1,6 @@
 <template>
     <div id="user" @click="click(user)">
-        {{user.name}} {{user.surname}} {{user.position}} {{user.departmentName}} <br/>
+        {{user.surname}} {{user.name}} {{user.position}} {{user.departmentName}} <br/>
         e-mail: {{user.email}} тел.: {{user.phone}} <br/>
         <div v-if="getRoles.includes('ROLE_ADMIN')">
             <input type="button" value="Удалить" @click="deleteUser(user)"/>

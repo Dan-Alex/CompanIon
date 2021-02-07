@@ -15,7 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -53,7 +55,10 @@ public class UserService implements UserDetailsService {
 
     public List<User> getAllUsers(){
 
-        return (List<User>) userRepository.findAll();
+        List<User> users = (List<User>) userRepository.findAll();
+        return users.stream()
+                .sorted(Comparator.comparing(User::getSurname))
+                .collect(Collectors.toList());
     }
 
     public User updateUser(User user){
