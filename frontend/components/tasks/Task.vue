@@ -7,7 +7,7 @@
         <div v-show="showText">{{task.text}}</div> <br/>
         <label for="files">Прикрепленные файлы:</label>
             <ul name="files">
-                <li v-for="file in task.documents"><a :href="'/files/'+file.filename">{{file.shortName}}</a></li>
+                <li v-for="file in task.documents"><a :href="'/files/'+file.filename" :download="file.shortName">{{file.shortName}}</a></li>
             </ul>
             <input v-if="task.status === 'NEW'" @click="takeToWork()" type="button" value="Взять в работу">
 

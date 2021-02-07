@@ -2,7 +2,7 @@
     <div>
         <h2>Мои документы</h2>
         <ul>
-            <li v-for="file in getFiles"><a :href="'/files/'+file.filename">{{file.shortName}}</a></li>
+            <li v-for="file in getFiles"><a :href="'/files/'+file.filename" :download="file.shortName">{{file.shortName}}</a></li>
         </ul>
 
         <h3>Добавить файл:</h3>
