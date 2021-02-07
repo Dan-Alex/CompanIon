@@ -66,6 +66,10 @@ public class User implements UserDetails {
         return departmentName;
     }
 
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }

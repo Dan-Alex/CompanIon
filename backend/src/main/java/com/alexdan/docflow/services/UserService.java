@@ -84,19 +84,33 @@ public class UserService implements UserDetailsService {
 
         User user = userRepository.findById(id).
                 orElseThrow(()-> new UserNotFoundException(id));
-        Department department = departmentRepository.findByName(user.getDepartmentName());
-        department.deleteEmployee(user);
-        departmentRepository.save(department);
+
+        if (!user.getDepartmentName().isEmpty()) {
+              Department department = departmentRepository.findByName(user.getDepartmentName());
+              department.deleteEmployee(user);
+              departmentRepository.save(department);
+          }
+
         userRepository.deleteById(id);
     }
 
     public User save(User user) {
+        Department department;
+        User savedUser;
 
-        Department department = departmentRepository.findByName(user.getDepartmentName());
+        if (user.getDepartmentName() == null ||
+                user.getDepartmentName().isEmpty()){
+            user.setDepartmentName("");
+            savedUser = userRepository.save(user);
+            return savedUser;
+        }
+
+        department = departmentRepository.findByName(user.getDepartmentName());
         user.setDepartment(department);
-        User savedUser = userRepository.save(user);
+        savedUser = userRepository.save(user);
         department.addEmployee(savedUser);
         departmentRepository.save(department);
+
         return savedUser;
     }
 
@@ -114,5 +128,4 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
         return savedDocument ;
     }
-
 }
