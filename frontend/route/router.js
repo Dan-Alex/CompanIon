@@ -13,7 +13,7 @@ import Performed from '../pages/tasks/Performed.vue'
 import Completed from '../pages/tasks/Completed.vue'
 import Sent from '../pages/tasks/Sent.vue'
 import Create from '../pages/tasks/Create.vue'
-import MyFiles from "../pages/MyFiles.vue";
+import MyFiles from "../pages/MyDocuments.vue";
 
 
 Vue.use(VueRouter)
@@ -30,7 +30,7 @@ const routes = [
     {path: '/employees', component: Employees},
     {path: '/departments_list', component: Departments},
     {path:'/about_company', component: Company},
-    {path: '/my_files', component: MyFiles},
+    {path: '/my_documents', component: MyDocuments},
     {path: '/profile', component: Profile},
     {path: '/registration', component: RegistrationPage,  name : 'registration', props:true},
 

@@ -4,7 +4,7 @@
         <a v-if="!getProfile" href="/login">Войти</a>
         <div v-if="getProfile != null">
             <router-link to="/my_tasks">Мои задачи</router-link>
-            <router-link to="/my_files">Мои документы</router-link>
+            <router-link to="/my_documents">Мои документы</router-link>
             <router-link to="/employees">Работники</router-link>
             <router-link to="/departments_list">Отделы</router-link>
             <router-link to="/about_company">О предприятии</router-link>
