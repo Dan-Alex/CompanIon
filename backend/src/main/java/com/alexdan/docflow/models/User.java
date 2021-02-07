@@ -33,7 +33,7 @@ public class User implements UserDetails {
     @JsonIgnore
     Set<Role> roles;
 
-    @OneToMany(mappedBy="user", cascade=CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     List<Document> documents;
 
@@ -52,7 +52,6 @@ public class User implements UserDetails {
         this.position = position;
         this.email = email;
         this.phone = phone;
-        this.documents = new ArrayList<>();
     }
 
     public long getId() {
@@ -139,9 +138,6 @@ public class User implements UserDetails {
         return documents;
     }
 
-    public void setDocuments(List<Document> documents) {
-        this.documents = documents;
-    }
 
     @Override
     @JsonIgnore
