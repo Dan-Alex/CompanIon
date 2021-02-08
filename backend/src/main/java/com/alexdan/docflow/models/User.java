@@ -1,6 +1,7 @@
 package com.alexdan.docflow.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -30,7 +31,7 @@ public class User implements UserDetails {
     private String departmentName;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JsonIgnore
+    @JsonIgnoreProperties(value="users", allowSetters = true)
     Set<Role> roles;
 
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
