@@ -20,6 +20,8 @@
             }
         },
 
+
+
         computed: {
           ...mapGetters(['getRoles'])
         },
@@ -30,6 +32,7 @@
             deleteUser(user) {
                 this.deleteUserAction(user);
             },
+
             click(user){
                 this.$root.$emit('selectUser', user)
             }

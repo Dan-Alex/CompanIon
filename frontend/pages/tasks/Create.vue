@@ -6,7 +6,7 @@
                 <input name="name" type="text" v-model="task.name"><br/>
             <label for="toWhom">Кому:</label>
                 <div name="toWhom">
-                    <find-user class="select" v-if="task.toWhom == ''"></find-user></div>
+                    <find-user class="select" v-if="task.toWhom === ''"></find-user></div>
                     <User v-if="task.toWhom !== ''" :user="task.toWhom"></User>
             <label for="text">Текст:</label><br/>
             <textarea name="text" v-model="task.text"></textarea><br/>

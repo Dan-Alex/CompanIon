@@ -1,6 +1,10 @@
 <template>
     <div>
         <br/>
+           <div v-if="getRoles.includes('ROLE_ADMIN')">
+                <input type="button" value = "Добавить отдел" @click="showForm = true">
+                <department-form v-if="showForm"></department-form><br/>
+           </div>
         Поиск: <find-department></find-department>
 
         <h3>Список всех отделов:</h3>
@@ -14,15 +18,23 @@
     import {mapGetters} from 'vuex'
     import Department from '../components/departments/Department.vue'
     import FindDepartment from "../components/departments/findDepartment.vue";
+    import DepartmentForm from "../components/departments/DepartmentForm.vue"
 
     export default {
 
-        components: {
-            Department,
-            FindDepartment
+        data() {
+            return {
+                showForm: false
+            }
         },
 
-        computed: mapGetters(['getAllDepartments'])
+        components: {
+            Department,
+            FindDepartment,
+            DepartmentForm
+        },
+
+        computed: mapGetters(['getAllDepartments', 'getRoles'])
     }
 </script>
 

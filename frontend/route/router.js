@@ -13,7 +13,7 @@ import Performed from '../pages/tasks/Performed.vue'
 import Completed from '../pages/tasks/Completed.vue'
 import Sent from '../pages/tasks/Sent.vue'
 import Create from '../pages/tasks/Create.vue'
-import MyFiles from "../pages/MyDocuments.vue";
+import MyDocuments from "../pages/MyDocuments.vue";
 
 
 Vue.use(VueRouter)
