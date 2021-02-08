@@ -9,5 +9,5 @@ export default {
             },
     get: id => departments.get({id}),
     update: department => departments.update({id : department.id}, department),
-    remove: department => departments.remove({id: department.id})
+    delete: department => departments.remove({id: department.id})
 }

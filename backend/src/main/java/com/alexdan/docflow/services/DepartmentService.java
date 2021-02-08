@@ -45,6 +45,12 @@ public class DepartmentService {
 
     public void deleteDepartment(long id){
 
+        Department department = this.getDepartment(id);
+        department.getEmployees().forEach(employee -> {
+                                                User user = userService.getUser(employee.getId());
+                                                user.setDepartment(null);
+                                                user.setDepartmentName("");
+                                        });
         departmentRepository.deleteById(id);
     }
 }

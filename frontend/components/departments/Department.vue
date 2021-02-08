@@ -11,7 +11,10 @@
             <ul>
                 <li v-for="employee in department.employees">{{employee.name}} {{employee.surname}} - {{employee.position}}</li>
             </ul>
-            <input type="button" value="Изменить" @click="isUpdate = true">
+            <div v-if="getRoles.includes('ROLE_ADMIN')">
+                <input type="button" value="Изменить" @click="isUpdate = true">
+                <input type="button" value="Удалить" @click="deleteDepartmentAction(department)">
+            </div>
         </div>
     </div>
 
@@ -19,6 +22,7 @@
 </template>
 
 <script>
+    import {mapActions, mapGetters} from 'vuex'
     import User from '../users/User.vue'
     import DepartmentForm from './DepartmentForm.vue'
 
@@ -42,12 +46,18 @@
             }
         },
 
+        computed: {
+            ...mapGetters(['getRoles'])
+        },
+
         created(){
             if (this.department.chief === null || this.department.chief === undefined)
                 this.department.chief = ''
         },
 
         methods:{
+            ...mapActions(['deleteDepartmentAction']),
+
             click(department){
                 this.$root.$emit('selectDepartment', department)
             }
