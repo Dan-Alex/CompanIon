@@ -63,13 +63,18 @@ public class UserService implements UserDetailsService {
 
     public User updateUser(User user){
 
-        User updUser;
+        User updUser = user;
         User oldUser = userRepository.findById(user.getId()).get();
+
+        updUser.setRoles(oldUser.getRoles());
+        updUser.setPassword(oldUser.getPassword());
+
         if ((!user.getDepartmentName().equals(oldUser.getDepartmentName())) || (oldUser.getDepartment() == null)) {
             updUser = save(user);
         } else {
             updUser = userRepository.save(user);
         }
+
         return updUser;
     }
 

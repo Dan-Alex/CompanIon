@@ -1,7 +1,9 @@
 package com.alexdan.docflow.models;
 
+import com.alexdan.docflow.models.json.JsonViews;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,29 +16,43 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView(JsonViews.Public.class)
     private long id;
 
+    @JsonView(JsonViews.Public.class)
     private String username;
+
+    @JsonView(JsonViews.Public.class)
     private String name;
+
+    @JsonView(JsonViews.Public.class)
     private String surname;
-    private String password;
+
+
+
+    @JsonView(JsonViews.Public.class)
     private String position;
+
+    @JsonView(JsonViews.Public.class)
     private String email;
+
+    @JsonView(JsonViews.Public.class)
     private String phone;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIgnore
     private Department department;
 
+    @JsonView(JsonViews.Public.class)
     private String departmentName;
 
+    @JsonView(JsonViews.FullInfo.class)
+    private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
-    @JsonIgnoreProperties(value="users", allowSetters = true)
     Set<Role> roles;
 
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    List<Document> documents;
+    private List<Document> documents;
 
     public void addDocument(Document document){
         this.documents.add(document);
@@ -145,31 +161,26 @@ public class User implements UserDetails {
 
 
     @Override
-    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
 
     @Override
-    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
-    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
-    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
-    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }
