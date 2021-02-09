@@ -20,13 +20,6 @@ export default {
             state.tasks = tasks;
         },
 
-        addTaskMutation(state, task){
-            state.tasks = [
-                ...state.tasks,
-                task
-            ]
-        },
-
         updateTaskMutation(state, task){
             const updIndex = state.tasks.findIndex(i => i.id === task.id);
             state.tasks = [
@@ -63,16 +56,23 @@ export default {
                 task.files[i] = await result1.json();
             }
             const result = await tasksApi.add(task);
-            const data = await result.json();
-            if (result.ok) {
-                commit('addTaskMutation', data)
-            }
         },
 
-        async updateTaskAction({commit}, task){
-            const result = await tasksApi.update(task);
+        async updateTaskAction({commit}, body){
+             if (body.files !== undefined) {
+                 for (let i = 0; i < body.files.length; i++) {
+                     const formData = new FormData();
+                     formData.append('file', body.files[i]);
+                     const result1 = await filesAPI.add(formData);
+                     const file = await result1.json();
+                     body.task.documents.push(file);
+                 }
+             }
+            const result = await tasksApi.update(body.task);
             const data = await result.json();
-            commit('updateTaskMutation', data)
+            if (result.ok) {
+                commit('updateTaskMutation', data)
+            }
         },
 
         async deleteTaskAction({commit}, task){

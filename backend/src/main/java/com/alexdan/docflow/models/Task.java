@@ -16,6 +16,7 @@ public class Task {
 
     private String name;
     private String text;
+    private String report;
 
     @OneToOne(targetEntity = User.class)
     @JoinColumn(name = "toWhomUser_id")
@@ -71,6 +72,14 @@ public class Task {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getReport() {
+        return report;
+    }
+
+    public void setReport(String report) {
+        this.report = report;
     }
 
     public User getToWhom() {

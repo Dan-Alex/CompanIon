@@ -5,13 +5,32 @@
         <label for="bth">Текст:</label> <input class="btn" v-if="showText === false" name="btn" type="button" value="открыть" @click="showText = true"/>
                 <input class="btn" v-else type="button" value="скрыть" @click="showText = false"/>
         <div v-show="showText">{{task.text}}</div> <br/>
+        <p v-if="task.status === 'COMPLETED'">Отчет:{{task.report}}</p>
         <label for="files">Прикрепленные файлы:</label>
             <ul name="files">
                 <li v-for="file in task.documents"><a :href="'/files/'+file.filename" :download="file.shortName">{{file.shortName}}</a></li>
             </ul>
-            <input v-if="task.status === 'NEW'" @click="takeToWork()" type="button" value="Взять в работу">
 
-            <input v-if="task.status === 'PERFORMED'" @click="complete()" type="button" value="Завершить" >
+
+
+        <input v-if="task.status === 'NEW'" @click="takeToWork()" type="button" value="Взять в работу">
+
+            <div v-if="task.status === 'PERFORMED'">
+                <label for="report">Отчет:</label>
+                    <textarea name="report" v-model="task.report"></textarea><br/>
+                <label for="files">Прикрепить файлы:</label>
+                <div name="files">
+                    <input type="button" value="Добавить файл" @click="files.push('')">
+                    <ul>
+                        <li v-for="file in files">
+                            <input type="file" class="file">
+                        </li>
+                    </ul>
+                </div>
+                <input  @click="complete()" type="button" value="Завершить">
+            </div>
+
+
     </div>
 </template>
 
@@ -31,6 +50,7 @@
 
         data() {
             return {
+                files: [],
                 showText: false
             }
         },
@@ -40,12 +60,23 @@
 
             takeToWork(){
                 this.task.status = 'PERFORMED';
-                this.updateTaskAction(this.task);
+                this.updateTaskAction({
+                                        task: this.task,
+                                        files: this.files
+                });
             },
 
             complete(){
                 this.task.status = 'COMPLETED';
-                this.updateTaskAction(this.task);
+
+                for (let i = 0; i < this.files.length; i++) {
+                    this.files[i] = document.getElementsByClassName('file')[i].files[0];
+                }
+
+                this.updateTaskAction({
+                                        task: this.task,
+                                        files: this.files
+                });
             }
         }
 

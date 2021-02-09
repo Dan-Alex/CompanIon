@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Создать задачу</h2>
-    <form action="/my_tasks/create">
+    <form action="/my_tasks">
             <label for="name">Название:</label>
                 <input name="name" type="text" v-model="task.name"><br/>
             <label for="toWhom">Кому:</label>
@@ -12,7 +12,7 @@
             <textarea name="text" v-model="task.text"></textarea><br/>
             <label for="files">Прикрепить файлы:</label>
                 <div name="files">
-                    <input type="button" value="Добавить файл" @click="task.files.push('')">
+                    <input type="button" value="Добавить файл" @click="task.documents.push('')">
                     <ul>
                         <li v-for="file in task.files">
                             <input type="file" class="file">
@@ -45,7 +45,7 @@
                     fromWhom: '',
                     text:'',
                     status: 'NEW',
-                    files: []
+                    documents: []
                 }
             }
         },
@@ -64,7 +64,7 @@
                 this.task.fromWhom = this.getProfile;
 
                for (let i = 0; i < this.task.files.length; i++) {
-                    this.task.files[i] = document.getElementsByClassName('file')[i].files[0];
+                    this.task.documents[i] = document.getElementsByClassName('file')[i].files[0];
                 }
 
                 delete this.task.fromWhom.password;
