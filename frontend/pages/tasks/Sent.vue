@@ -1,25 +1,32 @@
 <template>
     <div>
         <tasks-list
-                :name="'Новые задачи'"
-                :tasks="tasks">
+                :name="'Отчеты'"
+                :tasks="getSentTasks">
         </tasks-list>
     </div>
 
 </template>
 
 <script>
+    import {mapActions, mapGetters} from 'vuex';
     import TasksList from "../../components/tasks/TasksList.vue";
+
 
     export default {
 
-        props: {
-            tasks: Array
-        },
+        computed: mapGetters(['getSentTasks']),
+
+        methods: mapActions(['getSentTasksAction']),
 
         components: {
             TasksList
+        },
+
+        created() {
+            this.getSentTasksAction()
         }
+
     }
 </script>
 

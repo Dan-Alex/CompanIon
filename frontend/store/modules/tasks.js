@@ -5,19 +5,25 @@ export default {
 
     state:{
         tasks: [],
+        sentTasks: []
     },
 
     getters: {
         getTasks: state => state.tasks,
         getNewTasks: state => state.tasks.filter( i => i.status === 'NEW'),
         getPerformedTasks: state => state.tasks.filter( i => i.status === 'PERFORMED'),
-        getCompletedTasks: state => state.tasks.filter( i => i.status === 'COMPLETED')
+        getCompletedTasks: state => state.tasks.filter( i => i.status === 'COMPLETED'),
+        getSentTasks: state => state.sentTasks
     },
 
     mutations:{
 
         getAllTasksMutation(state, tasks){
             state.tasks = tasks;
+        },
+
+        getSentTasksMutation(state, sentTasks){
+            state.sentTasks = sentTasks;
         },
 
         updateTaskMutation(state, task){
@@ -45,6 +51,14 @@ export default {
             const data = await result.json();
             if (result.ok){
                 commit('getAllTasksMutation', data)
+            }
+        },
+
+        async getSentTasksAction({commit}){
+            const result = await tasksApi.getSentTasks();
+            const data = await result.json();
+            if (result.ok){
+                commit('getSentTasksMutation', data)
             }
         },
 

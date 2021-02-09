@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>{{name}}</h2>
-        <p v-show="tasks.length === 0 || tasks.length === undefined">Нет задач</p>
+        <p v-show=" tasks === undefined || tasks.length === 0 || tasks.length === undefined">Нет задач</p>
         <ul>
             <li v-for="task in tasks">
                 <task :task="task"></task>

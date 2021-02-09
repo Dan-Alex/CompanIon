@@ -28,6 +28,11 @@ public class TaskService {
         return taskRepository.findAllTasks(user.getId());
     }
 
+    public Set<Task> getCompletedSentTasks(User user){
+
+        return  taskRepository.findCompletedSentTasks(user.getId());
+    }
+
     public Task getTask(long id){
 
         return taskRepository.findById(id).

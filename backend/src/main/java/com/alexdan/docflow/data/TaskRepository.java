@@ -16,4 +16,7 @@ public Set<Task> findLastThreeTasks(@Param("user_id") Long userId);
 @Query(value = "SELECT * FROM tasks WHERE to_whom_user_id = :user_id ORDER BY id", nativeQuery =true)
 public Set<Task> findAllTasks(@Param("user_id") Long userId);
 
+@Query(value = "SELECT * FROM tasks WHERE from_whom_user_id = :user_id and status = 'COMPLETED' ORDER BY id", nativeQuery =true)
+public Set<Task> findCompletedSentTasks(@Param("user_id") Long userId);
+
 }

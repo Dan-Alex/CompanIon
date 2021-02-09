@@ -1,7 +1,10 @@
 <template>
     <div>
         {{task.name}} <br/>
-        От кого: <user :user="task.fromWhom"></user>
+
+        <p v-if="getProfile.id === task.toWhom.id">От кого: <user :user="task.fromWhom"></user></p>
+        <p v-else>Кому: <user :user="task.toWhom"></user></p>
+
         <label for="bth">Текст:</label> <input class="btn" v-if="showText === false" name="btn" type="button" value="открыть" @click="showText = true"/>
                 <input class="btn" v-else type="button" value="скрыть" @click="showText = false"/>
         <div v-show="showText">{{task.text}}</div> <br/>
@@ -35,7 +38,7 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
     import User from '../users/User.vue';
 
     export default {
@@ -54,6 +57,8 @@
                 showText: false
             }
         },
+
+        computed: mapGetters(['getProfile']),
 
         methods:{
             ...mapActions(['updateTaskAction']),

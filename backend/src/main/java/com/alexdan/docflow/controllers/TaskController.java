@@ -31,6 +31,13 @@ public class TaskController {
         return taskService.getAllTasks(user);
     }
 
+    @GetMapping("/sent")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    public Set<Task> getCompletedSentTasks(@AuthenticationPrincipal User user) {
+
+        return taskService.getCompletedSentTasks(user);
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public Task getTask(@PathVariable long id){
