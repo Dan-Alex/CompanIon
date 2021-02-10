@@ -63,11 +63,13 @@ export default {
         },
 
         async addTaskAction({commit},task){
-            for (let i = 0; i < task.files.length; i++) {
-                const formData = new FormData();
-                formData.append('file', task.files[i]);
-                const result1 = await filesAPI.add(formData);
-                task.files[i] = await result1.json();
+            if (task.documents !== undefined) {
+                for (let i = 0; i < task.documents.length; i++) {
+                    const formData = new FormData();
+                    formData.append('file', task.documents[i]);
+                    const result1 = await filesAPI.add(formData);
+                    task.documents[i] = await result1.json();
+                }
             }
             const result = await tasksApi.add(task);
         },

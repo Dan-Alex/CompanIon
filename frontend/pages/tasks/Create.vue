@@ -63,8 +63,10 @@
             addTask(){
                 this.task.fromWhom = this.getProfile;
 
-               for (let i = 0; i < this.task.files.length; i++) {
-                    this.task.documents[i] = document.getElementsByClassName('file')[i].files[0];
+                if (this.task.documents !== undefined) {
+                    for (let i = 0; i < this.task.documents.length; i++) {
+                        this.task.documents[i] = document.getElementsByClassName('file')[i].files[0];
+                    }
                 }
 
                 delete this.task.fromWhom.password;

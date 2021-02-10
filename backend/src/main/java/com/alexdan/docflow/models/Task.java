@@ -1,6 +1,5 @@
 package com.alexdan.docflow.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -18,13 +17,11 @@ public class Task {
     private String text;
     private String report;
 
-    @OneToOne(targetEntity = User.class)
-    @JoinColumn(name = "toWhomUser_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value={"username", "password"}, allowSetters = true)
     private User toWhom;
 
-    @OneToOne(targetEntity = User.class)
-    @JoinColumn(name = "fromWhomUser_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value={"username", "password"}, allowSetters = true)
     private User fromWhom;
 
