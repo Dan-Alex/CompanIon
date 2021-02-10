@@ -35,12 +35,33 @@ public class TaskService {
         return userRepository.findById(user.getId()).get().getIncomingTasks();
     }
 
-    public List<Task> getAllOutgoingTasks(User user){
+    public List<Task> getCompletedOutgoingTasks(User user){
 
         return  userRepository.findById(user.getId()).get().getOutgoingTasks().
                                                             stream().
                                                             filter(task -> task.getStatus() == TasksStatuses.COMPLETED).
                                                             collect(Collectors.toList());
+    }
+
+    public List<Task> getNewIncomingTasks(User user) {
+
+        return this.getAllIncomingTasks(user).stream().
+                                                filter(task -> task.getStatus() == TasksStatuses.NEW).
+                                                collect(Collectors.toList());
+    }
+
+    public List<Task> getPerformedIncomingTasks(User user) {
+
+        return this.getAllIncomingTasks(user).stream().
+                                                filter(task -> task.getStatus() == TasksStatuses.PERFORMED).
+                                                collect(Collectors.toList());
+    }
+
+    public List<Task> getCompletedIncomingTasks(User user) {
+
+        return this.getAllIncomingTasks(user).stream().
+                                                filter(task -> task.getStatus() == TasksStatuses.COMPLETED).
+                                                collect(Collectors.toList());
     }
 
     public Task getTask(long id){

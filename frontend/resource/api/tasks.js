@@ -1,7 +1,6 @@
 import Vue from 'vue'
 
-const tasks= Vue.resource('/tasks{/id}')
-const sentTasks = Vue.resource('/tasks/sent')
+const tasks = Vue.resource('/tasks{/id}')
 
 export default {
     add: task => tasks.save({}, task),
@@ -12,6 +11,15 @@ export default {
     update: task => tasks.update({id : task.id}, task),
     remove: task => tasks.remove({id: task.id}),
     getSentTasks: () => {
-        return sentTasks.get({})
+        return tasks.get({id: 'outgoing/completed'})
     },
+    getNew: () => {
+        return tasks.get({id: 'new'})
+    },
+    getPerformed: () => {
+        return tasks.get({id: 'performed'})
+    },
+    getCompleted: () => {
+        return tasks.get({id: 'completed'})
+    }
 }

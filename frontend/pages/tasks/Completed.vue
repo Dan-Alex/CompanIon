@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
     import TasksList from "../../components/tasks/TasksList.vue";
 
     export default {
@@ -19,6 +19,12 @@
         },
 
         computed: mapGetters(['getCompletedTasks']),
+
+        methods: mapActions(['getCompletedTasksAction']),
+
+        created(){
+            this.getCompletedTasksAction();
+        }
     }
 </script>
 

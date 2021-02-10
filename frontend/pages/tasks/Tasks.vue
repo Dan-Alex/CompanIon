@@ -5,7 +5,7 @@
         <div>
             <router-link :to="{name : 'new'}">Новые({{getNewTasks.length}})</router-link>
             <router-link :to="{name : 'performed'}">В работе({{getPerformedTasks.length}})</router-link>
-            <router-link :to="{name : 'completed'}">Завершенные({{getCompletedTasks.length}})</router-link>
+            <router-link :to="{name : 'completed'}">Завершенные</router-link>
             <router-link :to="{name : 'sent'}">Отчеты</router-link>
             <router-link :to="{name:'create'}">Создать</router-link>
         </div>
@@ -24,12 +24,13 @@
             TasksList
         },
 
-        computed: mapGetters(['getTasks','getNewTasks', 'getPerformedTasks', 'getCompletedTasks', 'getSentTasks']),
+        computed: mapGetters(['getNewTasks', 'getPerformedTasks']),
 
-        methods: mapActions(['getAllTasksAction']),
+        methods: mapActions(['getNewTasksAction', 'getPerformedTasksAction']),
 
         created() {
-            this.getAllTasksAction();
+            this.getNewTasksAction();
+            this.getPerformedTasksAction();
         }
     }
 </script>

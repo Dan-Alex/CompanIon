@@ -5,14 +5,17 @@ export default {
 
     state:{
         tasks: [],
+        newTasks: [],
+        performedTasks: [],
+        completedTasks: [] ,
         sentTasks: []
     },
 
     getters: {
         getTasks: state => state.tasks,
-        getNewTasks: state => state.tasks.filter( i => i.status === 'NEW'),
-        getPerformedTasks: state => state.tasks.filter( i => i.status === 'PERFORMED'),
-        getCompletedTasks: state => state.tasks.filter( i => i.status === 'COMPLETED'),
+        getNewTasks: state => state.newTasks,
+        getPerformedTasks: state => state.performedTasks,
+        getCompletedTasks: state => state.completedTasks,
         getSentTasks: state => state.sentTasks
     },
 
@@ -20,6 +23,18 @@ export default {
 
         getAllTasksMutation(state, tasks){
             state.tasks = tasks;
+        },
+
+        getNewTasksMutation(state, newTasks){
+          state.newTasks = newTasks;
+        },
+
+        getPerformedTasksMutation(state, performedTasks){
+            state.performedTasks = performedTasks;
+        },
+
+        getCompletedTasksMutation(state, completedTasks){
+            state.completedTasks = completedTasks;
         },
 
         getSentTasksMutation(state, sentTasks){
@@ -51,6 +66,30 @@ export default {
             const data = await result.json();
             if (result.ok){
                 commit('getAllTasksMutation', data)
+            }
+        },
+
+        async getNewTasksAction({commit}){
+            const result = await tasksApi.getNew();
+            const data = await result.json();
+            if (result.ok){
+                commit('getNewTasksMutation', data)
+            }
+        },
+
+        async getPerformedTasksAction({commit}){
+            const result = await tasksApi.getPerformed();
+            const data = await result.json();
+            if (result.ok){
+                commit('getPerformedTasksMutation', data)
+            }
+        },
+
+        async getCompletedTasksAction({commit}){
+            const result = await tasksApi.getCompleted();
+            const data = await result.json();
+            if (result.ok){
+                commit('getCompletedTasksMutation', data)
             }
         },
 
