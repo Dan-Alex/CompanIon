@@ -32,11 +32,32 @@ public class TaskController {
         return taskService.getAllIncomingTasks(user);
     }
 
-    @GetMapping("/sent")
+    @GetMapping("/new")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    public List<Task> getAllOutgoingTasks(@AuthenticationPrincipal User user) {
+    public List<Task> getNewTasks(@AuthenticationPrincipal User user) {
 
-        return taskService.getAllOutgoingTasks(user);
+        return taskService.getNewIncomingTasks(user);
+    }
+
+    @GetMapping("/performed")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    public List<Task> getPerformedTasks(@AuthenticationPrincipal User user) {
+
+        return taskService.getPerformedIncomingTasks(user);
+    }
+
+    @GetMapping("/completed")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    public List<Task> getCompletedTasks(@AuthenticationPrincipal User user) {
+
+        return taskService.getCompletedIncomingTasks(user);
+    }
+
+    @GetMapping("/outgoing/completed")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    public List<Task> getCompletedOutgoingTasks(@AuthenticationPrincipal User user) {
+
+        return taskService.getCompletedOutgoingTasks(user);
     }
 
     @GetMapping("/{id}")
