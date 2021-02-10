@@ -16,7 +16,6 @@ public class DepartmentService {
     private final UserService userService;
 
     @Autowired
-
     public DepartmentService(DepartmentRepository departmentRepository, UserService userService) {
 
         this.departmentRepository = departmentRepository;

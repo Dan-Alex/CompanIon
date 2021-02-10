@@ -65,12 +65,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}/files")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public List<Document> getUserFiles(@PathVariable long id){
 
         return userService.getUsersDocuments(id);
     }
 
     @PostMapping(value="/{id}/files", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public Document addFile(@PathVariable long id, @RequestBody Document document){
 
         return userService.addFile(id, document);

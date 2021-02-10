@@ -30,7 +30,6 @@ public class DepartmentController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public Department getDepartment(@PathVariable long id){
 
         return departmentService.getDepartment(id);

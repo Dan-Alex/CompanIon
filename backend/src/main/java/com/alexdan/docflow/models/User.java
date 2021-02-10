@@ -2,7 +2,6 @@ package com.alexdan.docflow.models;
 
 import com.alexdan.docflow.models.json.JsonViews;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,7 +27,8 @@ public class User implements UserDetails {
     @JsonView(JsonViews.Public.class)
     private String surname;
 
-
+    @JsonView(JsonViews.FullInfo.class)
+    private String password;
 
     @JsonView(JsonViews.Public.class)
     private String position;
@@ -40,23 +40,37 @@ public class User implements UserDetails {
     private String phone;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     private Department department;
 
     @JsonView(JsonViews.Public.class)
     private String departmentName;
 
-    @JsonView(JsonViews.FullInfo.class)
-    private String password;
-
     @ManyToMany(fetch = FetchType.EAGER)
-    Set<Role> roles;
+    @JsonIgnore
+    private Set<Role> roles;
+
+    @OneToMany(mappedBy="toWhom", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Task> incomingTasks;
+
+    @OneToMany(mappedBy="fromWhom", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Task> outgoingTasks;
 
     @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Document> documents;
 
     public void addDocument(Document document){
         this.documents.add(document);
     }
+
+    public void addIncomingTask(Task task) { this.incomingTasks.add(task); }
+
+    public void addOutgoingTask(Task task) { this.outgoingTasks.add(task); }
+
+
 
 
     public User(){}
@@ -159,28 +173,40 @@ public class User implements UserDetails {
         return documents;
     }
 
+    public List<Task> getIncomingTasks() {
+        return incomingTasks;
+    }
+
+    public List<Task> getOutgoingTasks() {
+        return outgoingTasks;
+    }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

@@ -1,6 +1,5 @@
 package com.alexdan.docflow.controllers;
 
-
 import com.alexdan.docflow.data.CompanyFieldsRepository;
 import com.alexdan.docflow.data.CompanyRepository;
 import com.alexdan.docflow.models.company.Company;
@@ -24,15 +23,11 @@ public class CompanyController {
     }
 
     @GetMapping
-    public Company getCompany() throws Exception {
-
-        Company company;
-        try {
-            company = companyRepository.findAll().iterator().next();
-        } catch (Exception e) {
-            return new Company();
-        }
-        return company;
+    public Company getCompany() {
+        Company company = companyRepository.findFirstByIdIsNotNull();
+           if (company != null)
+                return company;
+           else return new Company();
     }
 
     @GetMapping("/{id}")
@@ -43,10 +38,10 @@ public class CompanyController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Company putCompany(@PathVariable long id, @RequestBody Company company) {
+    public Company putCompany(@RequestBody Company company) {
 
         Company updCompany = companyRepository.save(company);
-       updCompany.getFields().forEach(field -> {
+        updCompany.getFields().forEach(field -> {
                                         field.setCompany(company);
                                         field = companyFieldsRepository.save(field);
                                         });
