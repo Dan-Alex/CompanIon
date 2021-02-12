@@ -7,7 +7,9 @@ import com.alexdan.docflow.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DepartmentService {
@@ -24,7 +26,10 @@ public class DepartmentService {
 
     public List<Department> getAllDepartments(){
 
-        return (List<Department>) departmentRepository.findAll();
+        List<Department> departments = (List<Department>) departmentRepository.findAll();
+        return departments.stream()
+                .sorted(Comparator.comparing(Department::getName))
+                .collect(Collectors.toList());
     }
 
     public Department getDepartment(long id){
