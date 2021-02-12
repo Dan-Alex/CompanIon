@@ -2,7 +2,7 @@
     <div>
         <br/>
            <div v-if="getRoles.includes('ROLE_ADMIN')">
-                <input type="button" value = "Добавить отдел" @click="showForm = true">
+               <input type="button" value = "Добавить отдел" @click="showForm = true"><br/>
                 <department-form v-if="showForm"></department-form><br/>
            </div>
         Поиск: <find-department></find-department>

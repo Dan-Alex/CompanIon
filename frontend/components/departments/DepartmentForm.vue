@@ -1,17 +1,16 @@
 <template>
     <div>
-        <h3>{{isUpdate ? 'Изменить' : 'Добавить'}}</h3>
         <form action="/departments_list" method="post">
 
             <label for="name">Название:</label>
                 <input type="text" name="name" v-model="department.name"><br/>
-            <label for="chief">Начальник</label>
-            <div name="chief">
-                <find-user v-if="department.chief === ''"></find-user></div>
-            <User v-if="department.chief !== ''" :user="department.chief"></User>
-
+            <label >Начальник:</label> <input  v-if="department.chief !==''" type="button" value="Изменить" @click="department.chief = ''">
+            <div >
+                <find-user v-if="department.chief === ''"></find-user>
+                <User v-if="department.chief !== ''" :user="department.chief"></User>
+            </div>
             <input type="submit"
-                   :value="isUpdate ? 'Изменить' : 'Добавить'"
+                   :value="isUpdate ? 'Изменить отдел' : 'Добавить'"
                    @click="isUpdate ? updateDepartment() : addDepartment()">
         </form>
     </div>

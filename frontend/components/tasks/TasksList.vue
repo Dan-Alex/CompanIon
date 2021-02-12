@@ -27,5 +27,7 @@
 </script>
 
 <style scoped>
-
+    h2, p {
+        text-align: center;
+    }
 </style>

@@ -1,0 +1,43 @@
+.header {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    background-color: khaki;
+    text-align: center;
+    padding: 1em;
+    border-radius: 15px;
+    font-size: 20pt;
+}
+
+.form__wrapper {
+    width: 300px;
+    margin: 20px auto;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.form__line {
+    display: flex;
+    justify-content: flex-end;
+    padding: 4px;
+}
+
+.form__line > label {
+    padding: 8px 16px 8px 0;
+    flex: 1;
+}
+
+.form__line > input {
+    flex: 2;
+    padding: 8px;
+}
+
+
+.submit {
+    border: 5px;
+    padding: 8px;
+    background-color: coral;
+    font-size: 16pt;
+    cursor: pointer;
+}

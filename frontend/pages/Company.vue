@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="isUpdate === false">
-            <h3>{{company.name}}</h3>
+            <h2>{{company.name}}</h2>
             <ul>
                 <li v-for="field in company.fields ">{{field.name}}: {{field.body}}</li>
             </ul>
@@ -10,6 +10,7 @@
         <input v-if="getRoles.includes('ROLE_ADMIN') && isUpdate === false" type="button" value="Редактировать" @click="isUpdate = true">
 
         <div v-if="getRoles.includes('ROLE_ADMIN') && isUpdate === true">
+            <br/>
             <label for="name">Название предприятия </label>
                 <input name="name" type="text" v-model="company.name"><br/>
             <label for="fields">Поля:</label>
@@ -63,4 +64,12 @@
 
 <style scoped>
 
+    h2 {
+        text-align: center;
+    }
+
+    li{
+        list-style-type: none;
+        padding: 1em;
+    }
 </style>

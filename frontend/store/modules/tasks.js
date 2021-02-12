@@ -4,7 +4,6 @@ import filesAPI from "../../resource/api/files";
 export default {
 
     state:{
-        tasks: [],
         newTasks: [],
         performedTasks: [],
         completedTasks: [] ,
@@ -12,7 +11,6 @@ export default {
     },
 
     getters: {
-        getTasks: state => state.tasks,
         getNewTasks: state => state.newTasks,
         getPerformedTasks: state => state.performedTasks,
         getCompletedTasks: state => state.completedTasks,
@@ -20,10 +18,6 @@ export default {
     },
 
     mutations:{
-
-        getAllTasksMutation(state, tasks){
-            state.tasks = tasks;
-        },
 
         getNewTasksMutation(state, newTasks){
           state.newTasks = newTasks;
@@ -41,33 +35,42 @@ export default {
             state.sentTasks = sentTasks;
         },
 
-        updateTaskMutation(state, task){
-            const updIndex = state.tasks.findIndex(i => i.id === task.id);
-            state.tasks = [
-                ...state.tasks.slice(0, updIndex),
+        updatePerformedTaskMutation(state, task){
+            const updIndex = state.performedTasks.findIndex(i => i.id === task.id);
+            state.performedTasks = [
+                ...state.performedTasks.slice(0, updIndex),
                 task,
-                ...state.tasks.slice(updIndex+1)
+                ...state.performedTasks.slice(updIndex+1)
             ]
         },
 
-        deleteTaskMutation(state, task){
-            const delIndex = state.tasks.findIndex(i => i.id === task.id);
-            state.tasks = [
-                ...state.tasks.slice(0, delIndex),
-                ...state.tasks.slice(delIndex+1)
+        updateCompletedTaskMutation(state, task){
+            const updIndex = state.completedTasks.findIndex(i => i.id === task.id);
+            state.completedTasks = [
+                ...state.completedTasks.slice(0, updIndex),
+                task,
+                ...state.completedTasks.slice(updIndex+1)
+            ]
+        },
+
+        deleteNewTaskMutation(state, task){
+            const delIndex = state.newTasks.findIndex(i => i.id === task.id);
+            state.newTasks = [
+                ...state.newTasks.slice(0, delIndex),
+                ...state.newTasks.slice(delIndex+1)
+            ]
+        },
+
+        deletePerformedTaskMutation(state, task){
+            const delIndex = state.performedTasks.findIndex(i => i.id === task.id);
+            state.performedTasks = [
+                ...state.performedTasks.slice(0, delIndex),
+                ...state.performedTasks.slice(delIndex+1)
             ]
         }
     },
 
     actions: {
-
-        async getAllTasksAction({commit}){
-            const result = await tasksApi.getAll();
-            const data = await result.json();
-            if (result.ok){
-                commit('getAllTasksMutation', data)
-            }
-        },
 
         async getNewTasksAction({commit}){
             const result = await tasksApi.getNew();
@@ -126,14 +129,18 @@ export default {
             const result = await tasksApi.update(body.task);
             const data = await result.json();
             if (result.ok) {
-                commit('updateTaskMutation', data)
-            }
-        },
-
-        async deleteTaskAction({commit}, task){
-            const result = await tasksApi.delete(task);
-            if (result.ok) {
-                commit('deleteTaskMutation', task)
+                switch(data.status){
+                    case 'PERFORMED': {
+                        commit('deleteNewTaskMutation', data);
+                        commit('updatePerformedTaskMutation', data);
+                        break;
+                    }
+                    case 'COMPLETED': {
+                        commit('deletePerformedTaskMutation', data);
+                        commit('updateCompletedTaskMutation', data);
+                        break;
+                    }
+                }
             }
         }
     }

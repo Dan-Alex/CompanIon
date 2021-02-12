@@ -8,8 +8,8 @@
         </select>
         <input type="button" @click="find()" value="Найти">
         <p v-if="notFound">Не найден</p>
-        <ul>
-            <li v-for="user in users">
+        <ul class="users_ul">
+            <li class="users_li" v-for="user in users">
                 <User :user="user"></User>
             </li>
         </ul>

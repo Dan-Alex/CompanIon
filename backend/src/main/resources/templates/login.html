@@ -4,15 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Docflow</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
 </head>
 <body>
-    <h1>Login</h1>
-    <form method="post" th:action="@{/login}" id="loginForm">
-        <label for="username">Username:</label>
-            <input type="text" name="username" id="username"/><br/>
-        <label for="password">Password:</label>
-            <input type="password" name="password" id="password"/><br/>
-        <input type="submit" value="Login">
+<div class="header">
+
+    <h1>DOCFLOW</h1>
+    <div><h2>Войти</h2>
+        <div class="form__wrapper">
+            <form method="post" th:action="@{/login}" id="loginForm">
+                <ul>
+                    <li class="form__line">
+                        <label for="username"> Логин:</label>
+                            <input type="text" name="username" id="username"/><br/>
+                    </li>
+                    <li class="form__line">
+                        <label for="password">Пароль:</label>
+                            <input type="password" name="password" id="password"/><br/>
+                    </li>
+                </ul>
+                <input class="submit" type="submit" value="Войти">
+        </div>
+        </div>
     </form>
+</div>
 </body>
 </html>

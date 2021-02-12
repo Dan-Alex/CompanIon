@@ -28,6 +28,8 @@ class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         registry.addResourceHandler("files/**")
                 .addResourceLocations("file://" + uploadPath + "/");
+        registry.addResourceHandler("css/**")
+                .addResourceLocations("classpath:/css/");
     }
 
     @Bean

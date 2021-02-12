@@ -1,10 +1,11 @@
 <template>
     <div>
+        <h2>Мой профиль</h2>
         <p> {{getProfile.name}} {{getProfile.surname}} </p>
-        <p> {{getProfile.position}}</p>
-        <p> {{getProfile.departmentName}}</p>
-        <p> {{getProfile.email}}</p>
-        <p> {{getProfile.phone}}</p>
+        <p> Должность: {{getProfile.position}}</p>
+        <p> Отдел: {{getProfile.departmentName}}</p>
+        <p> Почта: {{getProfile.email}}</p>
+        <p> Тел.: {{getProfile.phone}}</p>
     </div>
 </template>
 
@@ -19,4 +20,7 @@
 
 <style scoped>
 
+    h2 {
+        text-align: center;
+    }
 </style>

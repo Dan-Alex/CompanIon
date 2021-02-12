@@ -29,7 +29,7 @@ public class UserController {
     @GetMapping("/{id}")
     @JsonView(JsonViews.Public.class)
     public User getUser(@PathVariable long id){
-    System.out.println(userService.getUser(id).getRoles());
+
         return userService.getUser(id);
     }
 
