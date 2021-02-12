@@ -2,7 +2,7 @@
     <div class="main-app">
         <div class="header">
 
-            <h1>DOCFLOW</h1>
+            <h1>CompanIon</h1>
             <a v-if="!getProfile" href="/login">Войти</a>
             <div  class="menu" v-if="getProfile != null">
                 <router-link class="menu_item" to="/my_tasks">Мои задачи</router-link>
