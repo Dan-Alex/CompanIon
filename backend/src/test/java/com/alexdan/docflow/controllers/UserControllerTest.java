@@ -1,7 +1,7 @@
-package com.alexdan.docflow.controllers;
+package com.alexdan.companion.controllers;
 
-import com.alexdan.docflow.data.UserRepository;
-import com.alexdan.docflow.models.User;
+import com.alexdan.companion.data.UserRepository;
+import com.alexdan.companion.models.User;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Rule;

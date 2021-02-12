@@ -1,7 +1,7 @@
-package com.alexdan.docflow.data;
+package com.alexdan.companion.data;
 
-import com.alexdan.docflow.DocflowApplication;
-import com.alexdan.docflow.models.User;
+import com.alexdan.companion.DocflowApplication;
+import com.alexdan.companion.models.User;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

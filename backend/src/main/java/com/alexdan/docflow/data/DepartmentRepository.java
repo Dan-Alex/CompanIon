@@ -1,9 +1,0 @@
-package com.alexdan.docflow.data;
-
-import com.alexdan.docflow.models.Department;
-import org.springframework.data.repository.CrudRepository;
-
-public interface DepartmentRepository extends CrudRepository<Department, Long> {
-
-   public Department findByName(String name);
-}
