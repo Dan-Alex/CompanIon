@@ -53,7 +53,7 @@ public class TaskController {
         return taskService.getCompletedIncomingTasks(user);
     }
 
-    @GetMapping("/outgoing/completed")
+    @GetMapping("/outgoing")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public List<Task> getCompletedOutgoingTasks(@AuthenticationPrincipal User user) {
 

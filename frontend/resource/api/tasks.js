@@ -11,7 +11,7 @@ export default {
     update: task => tasks.update({id : task.id}, task),
     remove: task => tasks.remove({id: task.id}),
     getSentTasks: () => {
-        return tasks.get({id: 'outgoing/completed'})
+        return tasks.get({id: 'outgoing'})
     },
     getNew: () => {
         return tasks.get({id: 'new'})
