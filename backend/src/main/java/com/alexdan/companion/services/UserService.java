@@ -2,6 +2,7 @@ package com.alexdan.companion.services;
 
 import com.alexdan.companion.data.DepartmentRepository;
 import com.alexdan.companion.data.DocumentRepository;
+import com.alexdan.companion.data.RoleRepository;
 import com.alexdan.companion.data.UserRepository;
 import com.alexdan.companion.exceptions.UserNotFoundException;
 import com.alexdan.companion.models.Department;
@@ -26,16 +27,20 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final DepartmentRepository departmentRepository;
     private final DocumentRepository documentRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, DepartmentRepository departmentRepository,
-                       DocumentRepository documentRepository) {
+    public UserService(UserRepository userRepository,
+                       DepartmentRepository departmentRepository,
+                       DocumentRepository documentRepository,
+                       RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.departmentRepository = departmentRepository;
         this.documentRepository = documentRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -80,7 +85,7 @@ public class UserService implements UserDetailsService {
 
     public User saveUser(User user){
 
-        user.setRoles(Collections.singleton(new Role(1L,"ROLE_USER")));
+        user.setRoles(Collections.singleton(roleRepository.save(new Role(1L,"ROLE_USER"))));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return save(user);
     }

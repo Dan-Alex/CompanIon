@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.alexdan</groupId>
-	<artifactId>docflow</artifactId>
+	<artifactId>companion</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>docflow</name>
+	<name>companion</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

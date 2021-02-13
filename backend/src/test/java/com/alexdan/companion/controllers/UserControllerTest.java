@@ -1,17 +1,17 @@
 package com.alexdan.companion.controllers;
 
-import com.alexdan.companion.data.UserRepository;
+import com.alexdan.companion.CompanionApplication;
+import com.alexdan.companion.exceptions.UserNotFoundException;
 import com.alexdan.companion.models.User;
+import com.alexdan.companion.services.UserService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -20,25 +20,21 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.util.NestedServletException;
 
-
-import java.util.Optional;
-
-import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = UserController.class)
+@SpringBootTest(classes = CompanionApplication.class)
 @WithMockUser(roles = {"ADMIN"})
 @AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
 class UserControllerTest {
 
     @MockBean
-    UserRepository userRepository;
+    UserService userService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -46,28 +42,24 @@ class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
     @Test
     public void getUserAndStatus200Test() throws Exception {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
                 "b@mail.com", "345678");
-        //user.setId(1);
 
-        when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
+        when(userService.getUser(1L)).thenReturn(user);
 
         mockMvc.perform(get("/users/1")).
                 andExpect(status().isOk()).
-                andExpect(jsonPath("$.id").value("1")).
                 andExpect(jsonPath("$.name").value("Bob"));
 
     }
 
-    @Test
+   @Test
     public void getUserTestAndStatus404Test() throws Exception {
 
+        when(userService.getUser(42L)).thenThrow(UserNotFoundException.class);
         mockMvc.perform(get("/users/42")).
                 andExpect(status().isNotFound());
     }
@@ -77,16 +69,14 @@ class UserControllerTest {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
                 "b@mail.com", "345678");
-       // user.setId(1);
 
-        when(userRepository.save(any())).thenReturn(user);
+        when(userService.updateUser(any())).thenReturn(user);
 
-        mockMvc.perform(put("/users/1", 1).
+        mockMvc.perform(put("/users/2").
                 content(objectMapper.writeValueAsString(user)).
                 contentType(MediaType.APPLICATION_JSON)).
                 andExpect(status().isOk()).
-                andExpect(jsonPath("$.name").value("Bob")).
-                andExpect(jsonPath("$.id").value("1"));
+                andExpect(jsonPath("$.name").value("Bob"));
     }
 
     @Test
@@ -94,7 +84,6 @@ class UserControllerTest {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
                 "b@mail.com", "345678");
-        //user.setId(1);
 
         mockMvc.perform(delete("/users/1", 1).
                 content(objectMapper.writeValueAsString(user)).
@@ -108,22 +97,29 @@ class UserControllerTest {
 
         User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
                 "b@mail.com", "345678");
-        //user.setId(1);
 
-        when(userRepository.save(any())).thenReturn(user);
+        when(userService.saveUser(any())).thenReturn(user);
 
         mockMvc.perform(post("/users").
                 content(objectMapper.writeValueAsString(user)).
                 contentType(MediaType.APPLICATION_JSON)).
                 andExpect(status().isOk()).
-                andExpect(jsonPath("$.name").value("Bob")).
-                andExpect(jsonPath("$.id").value("1"));
+                andExpect(jsonPath("$.name").value("Bob"));
     }
 
     @Test
     @WithMockUser("hasRole('USER')")
     public void postUserWhenRoleUserAndStatus() throws Exception {
 
-        mockMvc.perform(post("/users"));   exception.expectCause(is(instanceOf(NestedServletException.class)));
+        User user = new User("Bob12", "Bob", "Bobov", "1234", "ingineer",
+                "b@mail.com", "345678");
+
+        when(userService.saveUser(any())).thenReturn(user);
+
+        assertThrows(NestedServletException.class, () -> {
+            mockMvc.perform(post("/users").
+                    content(objectMapper.writeValueAsString(user)).
+                    contentType(MediaType.APPLICATION_JSON));
+        });
     }
 }
