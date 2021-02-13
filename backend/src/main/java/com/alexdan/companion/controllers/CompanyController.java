@@ -1,8 +1,7 @@
 package com.alexdan.companion.controllers;
 
-import com.alexdan.companion.data.CompanyFieldsRepository;
-import com.alexdan.companion.data.CompanyRepository;
 import com.alexdan.companion.models.company.Company;
+import com.alexdan.companion.services.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,39 +11,30 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/company")
 public class CompanyController {
 
-    private final CompanyRepository companyRepository;
-    private final CompanyFieldsRepository companyFieldsRepository;
+    private final CompanyService companyService;
 
     @Autowired
-    public CompanyController(CompanyRepository companyRepository, CompanyFieldsRepository companyFieldsRepository) {
+    public CompanyController(CompanyService companyService) {
 
-        this.companyRepository = companyRepository;
-        this.companyFieldsRepository = companyFieldsRepository;
+        this.companyService = companyService;
     }
 
     @GetMapping
     public Company getCompany() {
-        Company company = companyRepository.findFirstByIdIsNotNull();
-           if (company != null)
-                return company;
-           else return new Company();
+
+        return companyService.getCompany();
     }
 
     @GetMapping("/{id}")
     public Company getCompanyById(@PathVariable long id) {
 
-        return companyRepository.findById(id).get();
+        return companyService.getCompanyById(id);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Company putCompany(@RequestBody Company company) {
 
-        Company updCompany = companyRepository.save(company);
-        updCompany.getFields().forEach(field -> {
-                                        field.setCompany(company);
-                                        field = companyFieldsRepository.save(field);
-                                        });
-        return updCompany;
+        return companyService.updateCompany(company);
     }
 }
