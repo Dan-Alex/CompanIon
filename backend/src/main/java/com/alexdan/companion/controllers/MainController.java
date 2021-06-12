@@ -1,5 +1,6 @@
 package com.alexdan.companion.controllers;
 import com.alexdan.companion.models.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,7 @@ import java.util.Set;
 public class MainController {
 
     @RequestMapping("/")
-    public String index(Model model, @AuthenticationPrincipal User profile) {
+    public String index(Model model, @AuthenticationPrincipal User profile, @Value("${mode:production}") String mode) {
 
         if (profile != null) {
             Set<String> roles = new LinkedHashSet<>();
@@ -23,6 +24,9 @@ public class MainController {
             model.addAttribute("roles", roles);
             model.addAttribute("profile", profile);
         }
+
+        model.addAttribute("isProdMode", "production".equals(mode));
+
         return "index";
     }
 }
