@@ -12,7 +12,7 @@ There is a user authorization system in app and roles of user and administrator.
 ## Stack
 
  Backend: 
-  - Java - Spring Framework(MVC, Security)
+  - Java - Spring Framework
  
  DBMS:
   - PostgreSQL
